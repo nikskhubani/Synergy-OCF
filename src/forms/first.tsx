@@ -1,13 +1,14 @@
 import { Box, Checkbox, Container, FormControlLabel, FormGroup, Typography } from '@mui/material';
 import { FormTitle, TextInput, TextInputLabel } from '../styles/global';
 import { Header } from '../components/header';
+import { FormWrapper } from '../components/form-wrapper';
 
 export const FirstForm = () => {
   return (
     <Container maxWidth="md" sx={{py: 4}}>
       <Header />
 
-      <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+      <FormWrapper>
         <Typography variant="h6" component="h6" gutterBottom>
           New Account Setup
         </Typography>
@@ -217,7 +218,7 @@ export const FirstForm = () => {
 
           <FormTitle sx={{m: 0, p: 0}} variant="body1" component="h6" gutterBottom></FormTitle>
         </Box>
-      </Box>
+      </FormWrapper>
     </Container>
   )
 }
