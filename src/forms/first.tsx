@@ -1,4 +1,5 @@
-import { Box, Checkbox, Container, FormControlLabel, FormGroup, InputLabel, styled, TextField, Typography } from '@mui/material';
+import { Box, Checkbox, Container, FormControlLabel, FormGroup, Typography } from '@mui/material';
+import { AddressText, FormTitle, TextInput, TextInputLabel } from '../styles/global';
 
 export const FirstForm = () => {
   return (
@@ -228,35 +229,3 @@ export const FirstForm = () => {
     </Container>
   )
 }
-
-const AddressText = styled('span')({
-  display: 'block',
-  margin: 0,
-  padding: 0,
-  fontSize: '0.7rem',
-  lineHeight: '1.5rem',
-})
-
-const FormTitle = styled(Typography)({
-  backgroundColor: '#d7d7d7',
-  width: '100%',
-  height: '25px',
-  textAlign: 'center',
-  fontWeight: 500,
-  borderBottom: '1.5px solid black',
-}) as typeof Typography
-
-const TextInputLabel = styled(InputLabel)({
-  padding: '8.5px 14px',
-  fontSize: '0.9rem',
-  color: 'black',
-}) as typeof InputLabel
-
-const TextInput = styled(TextField)({
-  backgroundColor: '#daebff',
-
-  '& .MuiOutlinedInput-notchedOutline': {
-    border: 'none',
-    borderRadius: '0px',
-  },
-}) as typeof TextField
