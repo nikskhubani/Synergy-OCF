@@ -1,5 +1,6 @@
 import { FirstForm } from './forms/first';
 import { SecondForm } from './forms/second';
+import { ThirdForm } from './forms/third';
 
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <FirstForm />
       <SecondForm />
+      <ThirdForm />
     </>
   )
 }
