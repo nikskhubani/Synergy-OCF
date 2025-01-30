@@ -1,9 +1,15 @@
-import { Box, Checkbox, Container, FormControlLabel, FormGroup, Typography } from "@mui/material"
+import { Box, Checkbox, Container, FormControl, FormControlLabel, Typography } from "@mui/material"
 import { Header } from "../components/header"
 import { FormWrapper } from "../components/form-wrapper"
 import { TextInput, TextInputLabel } from "../styles/global"
+import { Controller, UseFormReturn } from "react-hook-form"
+import { FormType } from "../schemas/schema"
 
-export const ThirdForm = () => {
+type ThirdFormProps = {
+  form: UseFormReturn<FormType>
+}
+
+export const ThirdForm = ({ form: { control } }: ThirdFormProps) => {
   return (
     <Container maxWidth="md" sx={{py: 4}}>
       <Header />
@@ -14,38 +20,57 @@ export const ThirdForm = () => {
         </Typography>
 
         <Box sx={{width: '100%', border: '1.5px solid black'}}>
-          <Box sx={{display: 'flex', alignItems: 'center', borderBottom: '1.5px solid black'}}>
-            <TextInputLabel htmlFor="name" sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+          <FormControl sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', borderBottom: '1.5px solid black'}}>
+            <TextInputLabel htmlFor={`authorization-client`} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
               Client:
             </TextInputLabel>
-            <TextInput id='name' fullWidth size='small' />
-          </Box>
-          <Box sx={{display: 'flex', alignItems: 'center', borderBottom: '1.5px solid black'}}>
-            <TextInputLabel htmlFor="name" sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+            
+            <Controller
+              name={`authorization.client`}
+              control={control}
+              render={({ field }) => <TextInput id={`authorization-client`} fullWidth size='small' {...field} />}
+            />
+          </FormControl>
+
+          <FormControl sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', borderBottom: '1.5px solid black'}}>
+            <TextInputLabel htmlFor={`authorization-address`} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
               Property/Address:
             </TextInputLabel>
-            <TextInput id='name' fullWidth size='small' />
-          </Box>
-          <Box sx={{display: 'flex', alignItems: 'center', borderBottom: '1.5px solid black'}}>
-            <TextInputLabel htmlFor="name" sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+            
+            <Controller
+              name={`authorization.address`}
+              control={control}
+              render={({ field }) => <TextInput id={`authorization-address`} fullWidth size='small' {...field} />}
+            />
+          </FormControl>
+
+          <FormControl sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', borderBottom: '1.5px solid black'}}>
+            <TextInputLabel htmlFor={`authorization-effectiveDate`} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
               Effective Date:
             </TextInputLabel>
-            <TextInput id='name' fullWidth size='small' />
-          </Box>
-          <Box sx={{display: 'flex', alignItems: 'center'}}>
-            <TextInputLabel htmlFor="name" sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
-              Multiple Locations
+            
+            <Controller
+              name={`authorization.effectiveDate`}
+              control={control}
+              render={({ field }) => <TextInput id={`authorization-effectiveDate`} fullWidth size='small' {...field} />}
+            />
+          </FormControl>
+
+          <FormControl sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <TextInputLabel htmlFor={`authorization-multipleLocations`} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+              Multiple Locations:
             </TextInputLabel>
-            <Box sx={{width: '100%', display: 'flex', alignItems: 'center'}}>
-              <FormGroup sx={{width: '30%', display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Yes" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="No" />
-              </FormGroup>
-              <TextInputLabel htmlFor="name" sx={{width: '70%', borderLeft: '1.5px solid black', px: '14px'}}>
-                “If Yes” A Separate list will be attached to this authorization letter
-              </TextInputLabel>
-            </Box>
-          </Box>
+            
+            <Controller
+              name={`authorization.multipleLocations`}
+              control={control}
+              render={({ field }) => <FormControlLabel sx={{width:'30%', display: 'flex', alignItems: 'center', justifyContent: 'center', '& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="" />}
+            />
+
+            <TextInputLabel htmlFor="name" sx={{width: '70%', borderLeft: '1.5px solid black', px: '14px'}}>
+              “If Yes” A Separate list will be attached to this authorization letter
+            </TextInputLabel>
+          </FormControl>
         </Box>
 
         <Typography pt="12px" variant="body1" component="p" gutterBottom>
@@ -76,12 +101,17 @@ export const ThirdForm = () => {
 
         <Box sx={{width: '100%', my: '16px'}}>
           <Box sx={{width: '100%', border: '1.5px solid black'}}>
-            <Box sx={{display: 'flex', alignItems: 'center'}}>
-              <TextInputLabel htmlFor="name" sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+            <FormControl sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+              <TextInputLabel htmlFor={`authorization-signature`} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
                 Signature:
               </TextInputLabel>
-              <TextInput id='name' fullWidth size='small' />
-            </Box>
+              
+              <Controller
+                name={`authorization.signature`}
+                control={control}
+                render={({ field }) => <TextInput id={`authorization-signature`} fullWidth size='small' {...field} />}
+              />
+            </FormControl>
           </Box>
           <Typography sx={{width: '100%', textAlign: 'right'}} variant="caption" component="p" gutterBottom>
             I have the authority to bind the coporation.
@@ -89,18 +119,29 @@ export const ThirdForm = () => {
         </Box>
 
         <Box sx={{width: '100%', border: '1.5px solid black'}}>
-          <Box sx={{display: 'flex', alignItems: 'center', borderBottom: '1.5px solid black'}}>
-            <TextInputLabel htmlFor="name" sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+          <FormControl sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', borderBottom: '1.5px solid black'}}>
+            <TextInputLabel htmlFor={`authorization-fullName`} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
               Full Name:
             </TextInputLabel>
-            <TextInput id='name' fullWidth size='small' />
-          </Box>
-          <Box sx={{display: 'flex', alignItems: 'center'}}>
-            <TextInputLabel htmlFor="name" sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+            
+            <Controller
+              name={`authorization.fullName`}
+              control={control}
+              render={({ field }) => <TextInput id={`authorization-fullName`} fullWidth size='small' {...field} />}
+            />
+          </FormControl>
+
+          <FormControl sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <TextInputLabel htmlFor={`authorization-position`} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
               Position:
             </TextInputLabel>
-            <TextInput id='name' fullWidth size='small' />
-          </Box>
+            
+            <Controller
+              name={`authorization.position`}
+              control={control}
+              render={({ field }) => <TextInput id={`authorization-position`} fullWidth size='small' {...field} />}
+            />
+          </FormControl>
         </Box>
       </FormWrapper>
     </Container>

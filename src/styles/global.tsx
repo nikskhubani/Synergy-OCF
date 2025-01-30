@@ -1,4 +1,4 @@
-import { InputLabel, styled, TextField, Typography } from '@mui/material';
+import { FormLabel, styled, TextField, Typography } from '@mui/material';
 
 export const AddressText = styled('span')({
   display: 'block',
@@ -17,11 +17,11 @@ export const FormTitle = styled(Typography)({
   borderBottom: '1.5px solid black',
 }) as typeof Typography
 
-export const TextInputLabel = styled(InputLabel)({
+export const TextInputLabel = styled(FormLabel)({
   padding: '8.5px 14px',
   fontSize: '0.9rem',
   color: 'black',
-}) as typeof InputLabel
+}) as typeof FormLabel
 
 export const TextInput = styled(TextField)({
   backgroundColor: '#daebff',

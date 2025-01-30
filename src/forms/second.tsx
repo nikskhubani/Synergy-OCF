@@ -1,9 +1,17 @@
-import { Box, Checkbox, Container, FormControlLabel, FormGroup, Typography } from "@mui/material"
+import { Box, Checkbox, Container, FormControl, FormControlLabel, FormGroup, FormHelperText, Typography } from "@mui/material"
 import { Header } from "../components/header"
 import { FormWrapper } from "../components/form-wrapper"
 import { FormTitle, TextInput, TextInputLabel } from "../styles/global"
+import { Controller, UseFormReturn } from "react-hook-form"
+import { FormType } from "../schemas/schema"
 
-export const SecondForm = () => {
+type SecondFormProps = {
+  form: UseFormReturn<FormType>
+}
+
+const emergencyContactForm = [0,1,2]
+
+export const SecondForm = ({ form: {control, formState: {errors}}}: SecondFormProps) => {
   return (
     <Container maxWidth="md" sx={{py: 4}}>
       <Header />
@@ -22,248 +30,225 @@ export const SecondForm = () => {
               Site/Project Information
             </FormTitle>
 
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
+            <FormControl error={!!errors.emergency?.companyName} sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
               <TextInputLabel htmlFor="companyName">
                 Company Name:
               </TextInputLabel>
-              <TextInput id='companyName' fullWidth size='small' />
-            </Box>
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
+              
+              <Controller
+                name="emergency.companyName"
+                control={control}
+                render={({ field }) => <TextInput id='companyName' fullWidth size='small' {...field} />}
+              />
+              <FormHelperText>{errors.emergency?.companyName?.message}</FormHelperText>
+            </FormControl>
+
+            <FormControl error={!!errors.emergency?.siteName} sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
               <TextInputLabel htmlFor="siteProjectName">
                 Site/Project Name:
               </TextInputLabel>
-              <TextInput id='siteProjectName' fullWidth size='small' />
-            </Box>
+              
+              <Controller
+                name="emergency.siteName"
+                control={control}
+                render={({ field }) => <TextInput id='siteProjectName' fullWidth size='small' {...field} />}
+              />
+              <FormHelperText>{errors.emergency?.siteName?.message}</FormHelperText>
+            </FormControl>
 
             <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <Box sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
+              <FormControl error={!!errors.emergency?.streetNumber} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
                 <TextInputLabel htmlFor="streetNumber">
                   Street Number:
                 </TextInputLabel>
-                <TextInput id='streetNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '50%', borderRight: '1.5px solid black'}}>
+                
+                <Controller
+                  name="emergency.streetNumber"
+                  control={control}
+                  render={({ field }) => <TextInput id='streetNumber' fullWidth size='small' {...field} />}
+                />
+                <FormHelperText>{errors.emergency?.streetNumber?.message}</FormHelperText>
+              </FormControl>
+              <FormControl error={!!errors.emergency?.streetName} sx={{flexBasis: '50%', borderRight: '1.5px solid black'}}>
                 <TextInputLabel htmlFor="streetName">
                   Street Name:
                 </TextInputLabel>
-                <TextInput id='streetName">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '25%'}}>
+                
+                <Controller
+                  name="emergency.streetName"
+                  control={control}
+                  render={({ field }) => <TextInput id='streetName' fullWidth size='small' {...field} />}
+                />
+                <FormHelperText>{errors.emergency?.streetName?.message}</FormHelperText>
+              </FormControl>
+              <FormControl error={!!errors.emergency?.suiteNo} sx={{flexBasis: '25%'}}>
                 <TextInputLabel htmlFor="suiteNo">
                   Suite No:
                 </TextInputLabel>
-                <TextInput id='suiteNo">' fullWidth size='small' />
-              </Box>
+                
+                <Controller
+                  name="emergency.suiteNo"
+                  control={control}
+                  render={({ field }) => <TextInput id='suiteNo' fullWidth size='small' {...field} />}
+                />
+                <FormHelperText>{errors.emergency?.suiteNo?.message}</FormHelperText>
+              </FormControl>
             </Box>
             <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
+              <FormControl error={!!errors.emergency?.city} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
                 <TextInputLabel htmlFor="city">
                   City:
                 </TextInputLabel>
-                <TextInput id='city">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
+                
+                <Controller
+                  name="emergency.city"
+                  control={control}
+                  render={({ field }) => <TextInput id='city' fullWidth size='small' {...field} />}
+                />
+                <FormHelperText>{errors.emergency?.city?.message}</FormHelperText>
+              </FormControl>
+              <FormControl error={!!errors.emergency?.province} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
                 <TextInputLabel htmlFor="province">
                   Province:
                 </TextInputLabel>
-                <TextInput id='province">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%'}}>
+                
+                <Controller
+                  name="emergency.province"
+                  control={control}
+                  render={({ field }) => <TextInput id='province' fullWidth size='small' {...field} />}
+                />
+                <FormHelperText>{errors.emergency?.province?.message}</FormHelperText>
+              </FormControl>
+              <FormControl error={!!errors.emergency?.postalCode} sx={{flexBasis: '33.3%'}}>
                 <TextInputLabel htmlFor="postalCode">
                   Postal Code:
                 </TextInputLabel>
-                <TextInput id='postalCode">' fullWidth size='small' />
-              </Box>
+                
+                <Controller
+                  name="emergency.postalCode"
+                  control={control}
+                  render={({ field }) => <TextInput id='postalCode' fullWidth size='small' {...field} />}
+                />
+                <FormHelperText>{errors.emergency?.postalCode?.message}</FormHelperText>
+              </FormControl>
             </Box>
           </Box>
 
-          <Box sx={{width: '100%'}}>
-            <FormTitle variant="body1" component="h6" gutterBottom>
-              (1) Emergency Contact
-            </FormTitle>
+          {emergencyContactForm.map((conForm) => (
+            <Box key={`emr-con-form-${conForm}`} sx={{width: '100%'}}>
+              <FormTitle variant="body1" component="h6" gutterBottom>
+                ({conForm + 1}) Emergency Contact
+              </FormTitle>
 
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <TextInputLabel htmlFor="name">
-                Name:
-              </TextInputLabel>
-              <TextInput id='name' fullWidth size='small' />
-            </Box>
+              <FormControl error={!!errors.emergency?.contact?.[conForm]} sx={{borderBottom: '1.5px solid black', width: '100%'}}>
+                <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                  <TextInputLabel htmlFor="name">
+                    Name:
+                  </TextInputLabel>
+                  
+                  <Controller
+                    name={`emergency.contact.${conForm}.name`}
+                    control={control}
+                    render={({ field }) => <TextInput id='name' fullWidth size='small' {...field} />}
+                  />
+                </Box>
+                {Array.isArray(errors.emergency?.contact) && <FormHelperText>{errors.emergency?.contact[conForm]?.name?.message}</FormHelperText>}
+               </FormControl>
 
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="primaryNumber">
-                  Primary Number:
-                </TextInputLabel>
-                <TextInput id='primaryNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="secondaryNumber">
-                  Secondary Number:
-                </TextInputLabel>
-                <TextInput id='secondaryNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%'}}>
-                <TextInputLabel htmlFor="emailAddress">
-                  Email Address:
-                </TextInputLabel>
-                <TextInput id='emailAddress">' fullWidth size='small' />
-              </Box>
-            </Box>
+              <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
+                <FormControl error={!!errors.emergency?.contact?.[conForm]?.primaryNumber} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
+                  <TextInputLabel htmlFor={`primaryNumber-${conForm}`}>
+                    Primary Number:
+                  </TextInputLabel>
+                  
+                  <Controller
+                    name={`emergency.contact.${conForm}.primaryNumber`}
+                    control={control}
+                    render={({ field }) => <TextInput id={`primaryNumber-${conForm}`} fullWidth size='small' {...field} />}
+                  />
+                  {Array.isArray(errors.emergency?.contact) && <FormHelperText>{errors.emergency?.contact[conForm]?.primaryNumber?.message}</FormHelperText>}
+                </FormControl>
 
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <TextInputLabel htmlFor="name">
-              This User is Authorized to (Check All that Apply) 
-              </TextInputLabel>
-            </Box>
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
-              <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Authorized to make service request/changes" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Access to Live Stream" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Override Alarm Dispatch Procedures" />
-              </FormGroup>
-            </Box>
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Alarm Notification (False/Positive)" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Incident Reports (SOR)" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Online Access to Reporting System" />
-              </FormGroup>
-            </Box>
-          </Box>
+                <FormControl error={!!errors.emergency?.contact?.[conForm]?.secondaryNumber} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
+                  <TextInputLabel htmlFor={`secondaryNumber-${conForm}`}>
+                    Secondary Number:
+                  </TextInputLabel>
+                  
+                  <Controller
+                    name={`emergency.contact.${conForm}.secondaryNumber`}
+                    control={control}
+                    render={({ field }) => <TextInput id={`secondaryNumber-${conForm}`} fullWidth size='small' {...field} />}
+                  />
+                  {Array.isArray(errors.emergency?.contact) && <FormHelperText>{errors.emergency?.contact[conForm]?.secondaryNumber?.message}</FormHelperText>}
+                </FormControl>
 
-          <Box sx={{width: '100%'}}>
-            <FormTitle variant="body1" component="h6" gutterBottom>
-              (2) Emergency Contact
-            </FormTitle>
+                <FormControl error={!!errors.emergency?.contact?.[conForm]?.emailAddress} sx={{flexBasis: '33.3%'}}>
+                  <TextInputLabel htmlFor={`emailAddress-${conForm}`}>
+                    Email Address:
+                  </TextInputLabel>
+                  
+                  <Controller
+                    name={`emergency.contact.${conForm}.emailAddress`}
+                    control={control}
+                    render={({ field }) => <TextInput id={`emailAddress-${conForm}`} fullWidth size='small' {...field} />}
+                  />
+                  {Array.isArray(errors.emergency?.contact) && <FormHelperText>{errors.emergency?.contact[conForm]?.emailAddress?.message}</FormHelperText>}
+                </FormControl>
+              </Box>
 
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <TextInputLabel htmlFor="name">
-                Name:
-              </TextInputLabel>
-              <TextInput id='name' fullWidth size='small' />
-            </Box>
+              <Box sx={{width: '100%'}}>
+                <FormTitle variant="body1" component="h6" gutterBottom>
+                  System Access & Report Distribution
+                </FormTitle>
+              </Box>
 
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="primaryNumber">
-                  Primary Number:
+              <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
+                <TextInputLabel htmlFor="name">
+                This User is Authorized to (Check All that Apply) 
                 </TextInputLabel>
-                <TextInput id='primaryNumber">' fullWidth size='small' />
               </Box>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="secondaryNumber">
-                  Secondary Number:
-                </TextInputLabel>
-                <TextInput id='secondaryNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%'}}>
-                <TextInputLabel htmlFor="emailAddress">
-                  Email Address:
-                </TextInputLabel>
-                <TextInput id='emailAddress">' fullWidth size='small' />
-              </Box>
-            </Box>
-          </Box>
 
-          <Box sx={{width: '100%'}}>
-            <FormTitle variant="body1" component="h6" gutterBottom>
-              System Access & Report Distribution
-            </FormTitle>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="primaryNumber">
-                  Primary Number:
-                </TextInputLabel>
-                <TextInput id='primaryNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="secondaryNumber">
-                  Secondary Number:
-                </TextInputLabel>
-                <TextInput id='secondaryNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%'}}>
-                <TextInputLabel htmlFor="emailAddress">
-                  Email Address:
-                </TextInputLabel>
-                <TextInput id='emailAddress">' fullWidth size='small' />
-              </Box>
-            </Box>
+              <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
+                  <Controller
+                    name={`emergency.contact.${conForm}.authorizedToMakeChanges`}
+                    control={control}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Authorized to make service request/changes" />}
+                  />
+                  <Controller
+                    name={`emergency.contact.${conForm}.accessToLiveStream`}
+                    control={control}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Access to Live Stream" />}
+                  />
+                  <Controller
+                    name={`emergency.contact.${conForm}.overrideAlarmDispatch`}
+                    control={control}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Override Alarm Dispatch Procedures" />}
+                  />
+                </FormGroup>
+              </FormControl>
 
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <TextInputLabel htmlFor="name">
-              This User is Authorized to (Check All that Apply) 
-              </TextInputLabel>
+              <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
+                  <Controller
+                    name={`emergency.contact.${conForm}.receiveAlarmNotification`}
+                    control={control}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Receive Alarm Notification (False/Positive)" />}
+                  />
+                  <Controller
+                    name={`emergency.contact.${conForm}.receiveIncidentReport`}
+                    control={control}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Receive Incident Reports (SOR)" />}
+                  />
+                  <Controller
+                    name={`emergency.contact.${conForm}.onlineAccessToReportingSystem`}
+                    control={control}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Online Access to Reporting System" />}
+                  />
+                </FormGroup>
+              </FormControl>
             </Box>
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
-              <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Authorized to make service request/changes" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Access to Live Stream" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Override Alarm Dispatch Procedures" />
-              </FormGroup>
-            </Box>
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Alarm Notification (False/Positive)" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Incident Reports (SOR)" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Online Access to Reporting System" />
-              </FormGroup>
-            </Box>
-          </Box>
-
-          <Box sx={{width: '100%'}}>
-            <FormTitle variant="body1" component="h6" gutterBottom>
-              (3) Emergency Contact
-            </FormTitle>
-
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <TextInputLabel htmlFor="name">
-                Name:
-              </TextInputLabel>
-              <TextInput id='name' fullWidth size='small' />
-            </Box>
-
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="primaryNumber">
-                  Primary Number:
-                </TextInputLabel>
-                <TextInput id='primaryNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="secondaryNumber">
-                  Secondary Number:
-                </TextInputLabel>
-                <TextInput id='secondaryNumber">' fullWidth size='small' />
-              </Box>
-              <Box sx={{flexBasis: '33.3%'}}>
-                <TextInputLabel htmlFor="emailAddress">
-                  Email Address:
-                </TextInputLabel>
-                <TextInput id='emailAddress">' fullWidth size='small' />
-              </Box>
-            </Box>
-
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <TextInputLabel htmlFor="name">
-              This User is Authorized to (Check All that Apply) 
-              </TextInputLabel>
-            </Box>
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
-              <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Authorized to make service request/changes" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Access to Live Stream" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Override Alarm Dispatch Procedures" />
-              </FormGroup>
-            </Box>
-            <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center'}}>
-              <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Alarm Notification (False/Positive)" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Incident Reports (SOR)" />
-                <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Online Access to Reporting System" />
-              </FormGroup>
-            </Box>
-          </Box>
+          ))}
 
           <Box sx={{width: '100%'}}>
             <FormTitle variant="body1" component="h6" gutterBottom>
@@ -283,9 +268,15 @@ export const SecondForm = () => {
                   Option 1
                 </FormTitle>
 
-                <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
-                  <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Alarm Notification (False/Positive)" />
-                </Box>
+                <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
+                  <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <Controller
+                      name="emergency.unreachable.dispatchSynergyAlarmResponse"
+                      control={control}
+                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Receive Alarm Notification (False/Positive)" />}
+                    />
+                  </FormGroup>
+                </FormControl>
 
                 <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
                   <Typography variant="caption" component="p">
@@ -298,9 +289,15 @@ export const SecondForm = () => {
                   Option 2
                 </FormTitle>
 
-                <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
-                  <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Alarm Notification (False/Positive)" />
-                </Box>
+                <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
+                  <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <Controller
+                      name="emergency.unreachable.dispatchPolice"
+                      control={control}
+                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Dispatch Police" />}
+                    />
+                  </FormGroup>
+                </FormControl>
 
                 <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
                   <Typography variant="caption" component="p">
@@ -308,14 +305,21 @@ export const SecondForm = () => {
                   </Typography>
                 </Box>
               </Box>
+
               <Box sx={{width: '100%'}}>
                 <FormTitle variant="body1" component="h6" gutterBottom>
                   Option 3
                 </FormTitle>
 
-                <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
-                  <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label="Receive Alarm Notification (False/Positive)" />
-                </Box>
+                <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
+                  <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                    <Controller
+                      name="emergency.unreachable.dispatchAnotherServiceProvider"
+                      control={control}
+                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Dispatch Another Service Provider" />}
+                    />
+                  </FormGroup>
+                </FormControl>
 
                 <Box sx={{borderBottom: '1.5px solid black', display: 'flex', alignItems: 'center', px: '14px'}}>
                   <Typography variant="caption" component="p">
@@ -326,7 +330,15 @@ export const SecondForm = () => {
             </Box>
 
             <Box sx={{px: '14px', borderBottom: '1.5px solid black'}}>
-              <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox />} label=" Do Not Take Dispatch Action" />
+              <FormControl>
+                <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                  <Controller
+                    name="emergency.unreachable.dontDispatch"
+                    control={control}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Do Not Take Dispatch Action" />}
+                  />
+                </FormGroup>
+              </FormControl>
 
               <Typography variant="body2" component="p">
                 I understand that if I do not elect to dispatch Police, Synergy or another provider, we cannot assist with stopping any criminal activity. We may only report the event/alarm to the authorized contacts above.
