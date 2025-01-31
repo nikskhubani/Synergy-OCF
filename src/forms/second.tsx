@@ -213,17 +213,17 @@ export const SecondForm = ({ form: {control, formState: {errors}}}: SecondFormPr
                   <Controller
                     name={`emergency.contact.${conForm}.authorizedToMakeChanges`}
                     control={control}
-                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Authorized to make service request/changes" />}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Authorized to make service request/changes" />}
                   />
                   <Controller
                     name={`emergency.contact.${conForm}.accessToLiveStream`}
                     control={control}
-                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Access to Live Stream" />}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Access to Live Stream" />}
                   />
                   <Controller
                     name={`emergency.contact.${conForm}.overrideAlarmDispatch`}
                     control={control}
-                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Override Alarm Dispatch Procedures" />}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Override Alarm Dispatch Procedures" />}
                   />
                 </FormGroup>
               </FormControl>
@@ -233,17 +233,17 @@ export const SecondForm = ({ form: {control, formState: {errors}}}: SecondFormPr
                   <Controller
                     name={`emergency.contact.${conForm}.receiveAlarmNotification`}
                     control={control}
-                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Receive Alarm Notification (False/Positive)" />}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Receive Alarm Notification (False/Positive)" />}
                   />
                   <Controller
                     name={`emergency.contact.${conForm}.receiveIncidentReport`}
                     control={control}
-                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Receive Incident Reports (SOR)" />}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Receive Incident Reports (SOR)" />}
                   />
                   <Controller
                     name={`emergency.contact.${conForm}.onlineAccessToReportingSystem`}
                     control={control}
-                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Online Access to Reporting System" />}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Online Access to Reporting System" />}
                   />
                 </FormGroup>
               </FormControl>
@@ -271,9 +271,9 @@ export const SecondForm = ({ form: {control, formState: {errors}}}: SecondFormPr
                 <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
                   <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <Controller
-                      name="emergency.unreachable.dispatchSynergyAlarmResponse"
+                      name="emergency.unreachable.dispatch_synergy_alarm_response"
                       control={control}
-                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Receive Alarm Notification (False/Positive)" />}
+                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Receive Alarm Notification (False/Positive)" />}
                     />
                   </FormGroup>
                 </FormControl>
@@ -292,9 +292,9 @@ export const SecondForm = ({ form: {control, formState: {errors}}}: SecondFormPr
                 <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
                   <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <Controller
-                      name="emergency.unreachable.dispatchPolice"
+                      name="emergency.unreachable.dispatch_police"
                       control={control}
-                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Dispatch Police" />}
+                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Dispatch Police" />}
                     />
                   </FormGroup>
                 </FormControl>
@@ -314,9 +314,9 @@ export const SecondForm = ({ form: {control, formState: {errors}}}: SecondFormPr
                 <FormControl sx={{borderBottom: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center', px: '14px'}}>
                   <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <Controller
-                      name="emergency.unreachable.dispatchAnotherServiceProvider"
+                      name="emergency.unreachable.dispatch_another_service_provider"
                       control={control}
-                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Dispatch Another Service Provider" />}
+                      render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Dispatch Another Service Provider" />}
                     />
                   </FormGroup>
                 </FormControl>
@@ -333,9 +333,9 @@ export const SecondForm = ({ form: {control, formState: {errors}}}: SecondFormPr
               <FormControl>
                 <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                   <Controller
-                    name="emergency.unreachable.dontDispatch"
+                    name="emergency.unreachable.do_not_take_dispatch_action"
                     control={control}
-                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="Do Not Take Dispatch Action" />}
+                    render={({ field }) => <FormControlLabel sx={{'& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="Do Not Take Dispatch Action" />}
                   />
                 </FormGroup>
               </FormControl>

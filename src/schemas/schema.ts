@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import {isMobilePhone} from 'validator'
 
 export const FormSchema = z.object({
   companyName: z.string().optional(),
@@ -9,14 +10,14 @@ export const FormSchema = z.object({
   province: z.string().optional(),
   postalCode: z.string().optional(),
   website: z.string().url().optional(),
-  mainNumber: z.string().optional(),
+  mainNumber: z.string().trim().refine(isMobilePhone, 'Invalid Phone').optional(),
   faxPhone: z.string().optional(),
   emailAddress: z.string().email().optional(),
   authorized: z.object({
     name: z.string().optional(),
     position: z.string().optional(),
-    mobileNumber: z.string().optional(),
-    officeNumber: z.string().optional(),
+    mobileNumber: z.string().trim().refine(isMobilePhone, 'Invalid Phone').optional(),
+    officeNumber: z.string().trim().refine(isMobilePhone, 'Invalid Phone').optional(),
     faxNumber: z.string().optional(),
     emailAddress: z.string().email().optional(),
   }).optional(),
@@ -48,8 +49,8 @@ export const FormSchema = z.object({
     postalCode: z.string().optional(),
     contact: z.array(z.object({
       name: z.string().optional(),
-      primaryNumber: z.string().optional(),
-      secondaryNumber: z.string().optional(),
+      primaryNumber: z.string().trim().refine(isMobilePhone, 'Invalid Phone').optional(),
+      secondaryNumber: z.string().trim().refine(isMobilePhone, 'Invalid Phone').optional(),
       emailAddress: z.string().email().optional(),
       authorizedToMakeChanges: z.boolean().optional(),
       accessToLiveStream: z.boolean().optional(),
@@ -59,16 +60,16 @@ export const FormSchema = z.object({
       onlineAccessToReportingSystem: z.boolean().optional(),
     })).optional(),
     unreachable: z.object({
-      dispatchSynergyAlarmResponse: z.boolean().optional(),
-      dispatchPolice: z.boolean().optional(),
-      dispatchAnotherServiceProvider: z.boolean().optional(),
-      dontDispatch: z.boolean().optional(),
+      dispatch_synergy_alarm_response: z.boolean().optional(),
+      dispatch_police: z.boolean().optional(),
+      dispatch_another_service_provider: z.boolean().optional(),
+      do_not_take_dispatch_action: z.boolean().optional(),
     }).optional()
   }).optional(),
   authorization: z.object({
     client: z.string().optional(),
     address: z.string().optional(),
-    effectiveDate: z.string().optional(),
+    effectiveDate: z.coerce.date().optional(),
     multipleLocations: z.boolean().optional(),
     signature: z.string().optional(),
     position: z.string().optional(),

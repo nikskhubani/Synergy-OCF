@@ -295,17 +295,17 @@ export const FirstForm = ({ form: {control, formState: {errors}}}: FirstFormProp
                   <Controller
                     name="account.invoiceDelivery.email"
                     control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label="Email" />}
+                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Email" />}
                   />
                   <Controller
                     name="account.invoiceDelivery.fax"
                     control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label="Fax" />}
+                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Fax" />}
                   />
                   <Controller
                     name="account.invoiceDelivery.mail"
                     control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label="Mail" />}
+                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Mail" />}
                   />
                 </FormGroup>
               </FormControl>
@@ -339,17 +339,17 @@ export const FirstForm = ({ form: {control, formState: {errors}}}: FirstFormProp
                 <Controller
                     name="account.paymentMethod.eft"
                     control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label="EFT" />}
+                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="EFT" />}
                   />
                   <Controller
                     name="account.paymentMethod.cheque"
                     control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label="Cheque" />}
+                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Cheque" />}
                   />
                   <Controller
                     name="account.paymentMethod.card"
                     control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox {...field} />} label="Visa/Mastercard" />}
+                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Visa/Mastercard" />}
                   />
                 </FormGroup>
               </FormControl>

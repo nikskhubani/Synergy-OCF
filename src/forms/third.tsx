@@ -4,6 +4,11 @@ import { FormWrapper } from "../components/form-wrapper"
 import { TextInput, TextInputLabel } from "../styles/global"
 import { Controller, UseFormReturn } from "react-hook-form"
 import { FormType } from "../schemas/schema"
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr-ca';
 
 type ThirdFormProps = {
   form: UseFormReturn<FormType>
@@ -52,7 +57,11 @@ export const ThirdForm = ({ form: { control } }: ThirdFormProps) => {
             <Controller
               name={`authorization.effectiveDate`}
               control={control}
-              render={({ field }) => <TextInput id={`authorization-effectiveDate`} fullWidth size='small' {...field} />}
+              render={({ field: {value, onChange} }) => (
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr-ca">
+                  <DatePicker slotProps={{ textField: { size: 'small' } }} sx={{ width: '100%', background: '#fff' }} value={value ? dayjs(value as Date) : null} onChange={(v) => onChange(dayjs(v).toDate())} />
+                </LocalizationProvider>
+              )}
             />
           </FormControl>
 
@@ -64,7 +73,7 @@ export const ThirdForm = ({ form: { control } }: ThirdFormProps) => {
             <Controller
               name={`authorization.multipleLocations`}
               control={control}
-              render={({ field }) => <FormControlLabel sx={{width:'30%', display: 'flex', alignItems: 'center', justifyContent: 'center', '& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox {...field} />} label="" />}
+              render={({ field }) => <FormControlLabel sx={{width:'30%', display: 'flex', alignItems: 'center', justifyContent: 'center', '& .MuiFormControlLabel-label': {fontSize: '14px'}}} control={<Checkbox checked={field.value} {...field} />} label="" />}
             />
 
             <TextInputLabel htmlFor="name" sx={{width: '70%', borderLeft: '1.5px solid black', px: '14px'}}>
