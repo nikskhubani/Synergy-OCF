@@ -1,6 +1,8 @@
 import { FormType } from "../schemas/schema";
 import { DataType } from "../types/data";
 
+const returnMap = (data: string[]) => data.reduce((a, b) => ({...a, [b]: true}), {})
+
 export const mapData = (data: DataType): FormType => {
   return {
     companyName: data.company_name,
@@ -27,9 +29,9 @@ export const mapData = (data: DataType): FormType => {
       directNumber: data.account_direct_number,
       faxNumber: data.account_fax_number,
       emailAddress: data.account_email_address,
-      invoiceDelivery: data.invoice_delivery.reduce((a, b) => ({...a, [b]: true}), {}),
+      invoiceDelivery: returnMap(data.invoice_delivery),
       emailAddressFax: data.email_address_or_fax,
-      paymentMethod: data.payment_method.reduce((a, b) => ({...a, [b]: true}), {}),
+      paymentMethod: returnMap(data.payment_method),
     },
     emergency: {
       companyName: data.emergency_company_name,
@@ -41,7 +43,7 @@ export const mapData = (data: DataType): FormType => {
       province: data.emergency_province,
       postalCode: data.emergency_postal_code,
       contact: data.emergency_contacts && typeof data.emergency_contacts === 'string' ? JSON.parse(data.emergency_contacts) : [],
-      unreachable: data.emergency_unreachable.reduce((a, b) => ({...a, [b]: true}), {}),
+      unreachable: returnMap(data.emergency_unreachable),
     },
     authorization: {
       client: data.authorization_client,
