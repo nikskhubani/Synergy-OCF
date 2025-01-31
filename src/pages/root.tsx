@@ -60,18 +60,6 @@ function Root() {
     )}
     </>
   )
-
-  // <BrowserRouter>
-  //     <Routes>
-  //       <Route path="/" element={<PageLayout />}>
-  //         {otherRoutes}
-  //       </Route>
-  //       <Route path="/dashboard" element={<Authenticated><PageLayout /></Authenticated>}>
-  //         {dashboardRoutes}
-  //       </Route>
-  //       <Route path="*" element={<div>NOT FOUND</div>} />
-  //     </Routes>
-  //   </BrowserRouter>
 }
 
 export default Root
