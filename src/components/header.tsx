@@ -1,10 +1,10 @@
-import { Box, Typography } from "@mui/material"
+import { Box, styled, Typography } from "@mui/material"
 import { AddressText } from "../styles/global"
 
 export const Header = () => {
   return (
     <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-        Logo
+        <BrandLogo src="/public/synergy.png" alt="logo" />
 
         <Typography variant="body1" component="p"sx={{textAlign: 'right'}} gutterBottom>
           <AddressText>150 Bridgeland Ave, Suite 100,</AddressText>
@@ -15,3 +15,7 @@ export const Header = () => {
       </Box>
   )
 }
+
+const BrandLogo = styled('img')({
+  width: '200px'
+})
