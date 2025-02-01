@@ -1,7 +1,7 @@
 import { FormType } from "../schemas/schema";
 import { DataType } from "../types/data";
 
-const returnMap = (data: string[]) => data.reduce((a, b) => ({...a, [b]: true}), {})
+const returnMap = (data: string[]) => data?.reduce((a, b) => ({...a, [b]: true}), {})
 
 export const mapData = (data: DataType): FormType => {
   return {
