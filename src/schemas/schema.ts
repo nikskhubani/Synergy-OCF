@@ -74,7 +74,17 @@ export const FormSchema = z.object({
     signature: z.string().optional(),
     position: z.string().optional(),
     fullName: z.string().optional(),
-  }).optional()
+  }).optional(),
+  additionalUsers: z.array(z.object({
+    name: z.string().optional(),
+    position: z.string().optional(),
+    telephone: z.string().trim().refine(isMobilePhone, 'Invalid Phone').optional(),
+    emailAddress: z.string().email().optional(),
+    securityReport: z.boolean().optional(),
+    specialOccurrences: z.boolean().optional(),
+    QAInspectionReport: z.boolean().optional(),
+    systemNotice: z.boolean().optional(),
+  })).optional()
 });
 
 export type FormType = z.infer<typeof FormSchema>;

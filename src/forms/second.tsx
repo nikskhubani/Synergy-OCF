@@ -27,13 +27,18 @@ export const SecondForm = ({
     formState: { errors },
   },
 }: SecondFormProps) => {
-  const { fields, append, remove } = useFieldArray({
+  const { fields: contactFields, append: newContact, remove: removeContact } = useFieldArray({
     control,
     name: "emergency.contact",
   });
+  const { fields: userFields, append: newUser, remove: removeUser } = useFieldArray({
+    control,
+    name: "additionalUsers",
+  });
 
   useEffect(() => {
-    append({})
+    newContact({})
+    newUser({})
   }, [])
 
   return (
@@ -249,9 +254,9 @@ export const SecondForm = ({
             </Box>
           </Box>
 
-          {fields.map((field, idx) => (
+          {contactFields.map((field, idx) => (
             <Box key={field.id} sx={{ width: "100%", position: 'relative' }}>
-              <RemoveButton variant="outlined" onClick={() => remove(idx)}>Remove</RemoveButton>
+              <RemoveButton variant="outlined" onClick={() => removeContact(idx)}>Remove</RemoveButton>
               <FormTitle variant="body1" component="h6" gutterBottom>
                 ({idx + 1}) Emergency Contact
               </FormTitle>
@@ -502,7 +507,7 @@ export const SecondForm = ({
               </FormControl>
             </Box>
           ))}
-          <Button type="button" variant="outlined" onClick={() => append({})}>
+          <Button type="button" variant="outlined" onClick={() => newContact({})}>
             Add More Contact
           </Button>
 
@@ -723,6 +728,206 @@ export const SecondForm = ({
                 contacts above.
               </Typography>
             </Box>
+          </Box>
+
+          <Box>
+            <FormTitle variant="body1" component="h6" gutterBottom>
+              Additional Electronic Report Delivery
+            </FormTitle>
+            <Typography sx={{textAlign: 'center'}} variant="body2" component="p" gutterBottom>
+              Please complete this form in full; The emergency contacts listed will
+              be called in order listed
+            </Typography>
+            {userFields.map((field, idx) => (
+              <Box key={field.id} sx={{ width: "100%", position: 'relative', borderTop: '1.5px solid black' }}>
+                <RemoveButton variant="outlined" onClick={() => removeUser(idx)}>Remove</RemoveButton>
+                <Box sx={{ display: "flex", borderBottom: "1.5px solid black" }}>
+                  <FormControl
+                    error={!!errors.additionalUsers?.[idx]?.name}
+                    sx={{ flexBasis: "50%", borderRight: "1.5px solid black" }}
+                  >
+                    <TextInputLabel htmlFor={`additionalUsers-name-${idx}`}>
+                      Name:
+                    </TextInputLabel>
+
+                    <Controller
+                      name={`additionalUsers.${idx}.name`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextInput
+                          id={`additionalUsers-name-${idx}`}
+                          fullWidth
+                          size="small"
+                          {...field}
+                        />
+                      )}
+                    />
+                    {Array.isArray(errors.additionalUsers) && (
+                      <FormHelperText>
+                        {errors.additionalUsers?.[idx]?.primaryNumber?.message}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+
+                  <FormControl
+                    error={!!errors.additionalUsers?.[idx]?.emailAddress}
+                    sx={{ flexBasis: "50%" }}
+                  >
+                    <TextInputLabel htmlFor={`additionalUsers-email-${idx}`}>
+                      Email Address:
+                    </TextInputLabel>
+
+                    <Controller
+                      name={`additionalUsers.${idx}.emailAddress`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextInput
+                          id={`additionalUsers-email-${idx}`}
+                          fullWidth
+                          size="small"
+                          {...field}
+                        />
+                      )}
+                    />
+                    {Array.isArray(errors.additionalUsers) && (
+                      <FormHelperText>
+                        {errors.additionalUsers?.[idx]?.secondaryNumber?.message}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ display: "flex", borderBottom: "1.5px solid black" }}>
+                  <FormControl
+                    error={!!errors.additionalUsers?.[idx]?.name}
+                    sx={{ flexBasis: "50%", borderRight: "1.5px solid black" }}
+                  >
+                    <TextInputLabel htmlFor={`additionalUsers-position-${idx}`}>
+                      Position:
+                    </TextInputLabel>
+
+                    <Controller
+                      name={`additionalUsers.${idx}.position`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextInput
+                          id={`additionalUsers-position-${idx}`}
+                          fullWidth
+                          size="small"
+                          {...field}
+                        />
+                      )}
+                    />
+                    {Array.isArray(errors.additionalUsers) && (
+                      <FormHelperText>
+                        {errors.additionalUsers?.[idx]?.position?.message}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+
+                  <FormControl
+                    error={!!errors.additionalUsers?.[idx]?.telephone}
+                    sx={{ flexBasis: "50%" }}
+                  >
+                    <TextInputLabel htmlFor={`additionalUsers-telephone-${idx}`}>
+                      Telephone:
+                    </TextInputLabel>
+
+                    <Controller
+                      name={`additionalUsers.${idx}.telephone`}
+                      control={control}
+                      render={({ field }) => (
+                        <TextInput
+                          id={`additionalUsers-telephone-${idx}`}
+                          fullWidth
+                          size="small"
+                          {...field}
+                        />
+                      )}
+                    />
+                    {Array.isArray(errors.additionalUsers) && (
+                      <FormHelperText>
+                        {errors.additionalUsers?.[idx]?.telephone?.message}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                </Box>
+
+                <FormControl
+                  sx={{
+                    borderBottom: "1.5px solid black",
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <FormGroup
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                      px: "14px",
+                    }}
+                  >
+                    <Controller
+                      name={`additionalUsers.${idx}.securityReport`}
+                      control={control}
+                      render={({ field }) => (
+                        <FormControlLabel
+                          sx={{
+                            "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                          }}
+                          control={<Checkbox checked={field.value} {...field} />}
+                          label="Security Reports (DSOR)"
+                        />
+                      )}
+                    />
+                    <Controller
+                      name={`additionalUsers.${idx}.specialOccurrences`}
+                      control={control}
+                      render={({ field }) => (
+                        <FormControlLabel
+                          sx={{
+                            "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                          }}
+                          control={<Checkbox checked={field.value} {...field} />}
+                          label="Special Occurrences (SOR)"
+                        />
+                      )}
+                    />
+                    <Controller
+                      name={`additionalUsers.${idx}.QAInspectionReport`}
+                      control={control}
+                      render={({ field }) => (
+                        <FormControlLabel
+                          sx={{
+                            "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                          }}
+                          control={<Checkbox checked={field.value} {...field} />}
+                          label="Q&A Inspection Reports"
+                        />
+                      )}
+                    />
+                    <Controller
+                      name={`additionalUsers.${idx}.systemNotice`}
+                      control={control}
+                      render={({ field }) => (
+                        <FormControlLabel
+                          sx={{
+                            "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                          }}
+                          control={<Checkbox checked={field.value} {...field} />}
+                          label="System Notice"
+                        />
+                      )}
+                    />
+                  </FormGroup>
+                </FormControl>
+              </Box>
+            ))}
+            <Button type="button" variant="outlined" onClick={() => newUser({})}>
+              Add More User
+            </Button>
           </Box>
 
           <FormTitle

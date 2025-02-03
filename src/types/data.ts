@@ -40,4 +40,5 @@ export type DataType = {
   invoice_delivery: string[],
   payment_method: string[],
   emergency_unreachable: string[],
+  additional_users: string,
 }

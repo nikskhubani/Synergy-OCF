@@ -9,13 +9,22 @@ import { getAppOnlyBearerToken, getSharePointData, saveToSharePointAsync } from 
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { mapData } from '../helpers/mapdata';
+import SuccessModal from '../components/success-modal';
+import { toast } from 'react-toastify';
 
 function Root() {
   const param = useParams()
   const [isLoading, setIsLoading] = useState(param.id ? true : false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [saved, setSaved] = useState({
+    valid: false,
+    id: ''
+  })
   const form = useForm<FormType>({
     resolver: zodResolver(FormSchema),
   })
+
+  console.log(form.formState.errors)
 
   const fetchData = useCallback(async () => {
     try {
@@ -38,15 +47,21 @@ function Root() {
 
   const onSubmit = async (data: FormType) => {
     try {
+      setIsSubmitting(true)
       const token = await getAppOnlyBearerToken()
-      await saveToSharePointAsync(data, token.access_token)
+      const response = await saveToSharePointAsync(data, token.access_token)
+      setSaved({valid: true, id: response.id})
+      toast("Saved successfully")
+      setIsSubmitting(false)
     } catch (error) {
       console.error(error)
+      setIsSubmitting(false)
     }
   }
 
   return (
     <>
+    {!param.id && <SuccessModal open={saved.valid} id={saved.id} />}
     {isLoading ? <div>Loading...</div> : (
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FirstForm form={form} />
@@ -54,7 +69,7 @@ function Root() {
         <ThirdForm form={form} />
 
         <Container maxWidth="md" sx={{pb: 4}}>
-          <Button  type="submit" variant="contained" color="primary">Submit</Button>
+          <Button disabled={isSubmitting} type="submit" variant="contained" color="primary">Submit</Button>
         </Container>
       </form>
     )}
