@@ -3,12 +3,14 @@ import { DataType } from "../types/data";
 
 const returnMap = (data: string[]) => data?.reduce((a, b) => ({...a, [b]: true}), {})
 
+const isValidnumber = (data: string) => /^\disValidnumber ? +$/.test(data);
+
 export const mapData = (data: DataType): FormType => {
   return {
     companyName: data.company_name,
-    streetNumber: +data.street_number,
+    streetNumber: isValidnumber(data.street_number) ? +data.street_number : undefined,
     streetName: data.street_name,
-    suiteNo: +data.suite_no,
+    suiteNo: isValidnumber(data.suite_no) ? +data.suite_no : undefined,
     city: data.city,
     province: data.province,
     postalCode: data.postal_code,
@@ -36,9 +38,9 @@ export const mapData = (data: DataType): FormType => {
     emergency: {
       companyName: data.emergency_company_name,
       siteName: data.emergency_project_site_name,
-      streetNumber: +data.emergency_street_number,
+      streetNumber: isValidnumber(data.emergency_street_number) ? +data.emergency_street_number : undefined,
       streetName: data.emergency_street_name,
-      suiteNo: +data.emergency_suite_no,
+      suiteNo: isValidnumber(data.emergency_suite_no) ? +data.emergency_suite_no : undefined,
       city: data.emergency_city,
       province: data.emergency_province,
       postalCode: data.emergency_postal_code,
@@ -54,5 +56,6 @@ export const mapData = (data: DataType): FormType => {
       position: data.authorization_position,
       fullName: data.authorization_fullname,
     },
+    additionalUsers: data.additional_users && typeof data.additional_users === 'string' ? JSON.parse(data.additional_users) : []
   };
 };

@@ -122,6 +122,7 @@ export async function saveToSharePointAsync(form: FormType, bearerToken: string)
         authorization_signature: form.authorization?.signature,
         authorization_fullname: form.authorization?.fullName,
         authorization_position: form.authorization?.position,
+        additional_users: JSON.stringify(form.additionalUsers),
       },
     };
 
@@ -158,6 +159,7 @@ export async function saveToSharePointAsync(form: FormType, bearerToken: string)
       )
       .post(itemPayload);
     console.log("Item saved to SharePoint:", response);
+    return response
   } catch (error) {
     console.log("Error saving item to SharePoint:", error);
     throw error;
