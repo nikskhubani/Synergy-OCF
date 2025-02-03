@@ -9,6 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr-ca';
+import SignaturePad from "../components/signature"
 
 type ThirdFormProps = {
   form: UseFormReturn<FormType>
@@ -118,8 +119,9 @@ export const ThirdForm = ({ form: { control } }: ThirdFormProps) => {
               <Controller
                 name={`authorization.signature`}
                 control={control}
-                render={({ field }) => <TextInput id={`authorization-signature`} fullWidth size='small' {...field} />}
+                render={({ field: {onChange, ...field} }) => <SignaturePad onSignatureChange={onChange} {...field} />}
               />
+              
             </FormControl>
           </Box>
           <Typography sx={{width: '100%', textAlign: 'right'}} variant="caption" component="p" gutterBottom>
