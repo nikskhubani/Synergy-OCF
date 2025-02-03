@@ -5,7 +5,7 @@ import { ThirdForm } from '../forms/third';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema, FormType } from '../schemas/schema';
-import { getAppOnlyBearerToken, getSharePointData, saveToSharePointAsync } from '../services/graph.service';
+import { getAppOnlyBearerToken, getSharePointData, saveToSharePointAsync, updateSharePointAsync } from '../services/graph.service';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { mapData } from '../helpers/mapdata';
@@ -23,8 +23,6 @@ function Root() {
   const form = useForm<FormType>({
     resolver: zodResolver(FormSchema),
   })
-
-  console.log(form.formState.errors)
 
   const fetchData = useCallback(async () => {
     try {
@@ -49,8 +47,12 @@ function Root() {
     try {
       setIsSubmitting(true)
       const token = await getAppOnlyBearerToken()
-      const response = await saveToSharePointAsync(data, token.access_token)
-      setSaved({valid: true, id: response.id})
+      if (param.id) {
+        await updateSharePointAsync(param.id, data, token.access_token)
+      } else {
+        const response = await saveToSharePointAsync(data, token.access_token)
+        setSaved({valid: true, id: response.id})
+      }
       toast("Saved successfully")
       setIsSubmitting(false)
     } catch (error) {

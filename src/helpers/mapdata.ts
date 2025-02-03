@@ -3,7 +3,7 @@ import { DataType } from "../types/data";
 
 const returnMap = (data: string[]) => data?.reduce((a, b) => ({...a, [b]: true}), {})
 
-const isValidnumber = (data: string) => /^\disValidnumber ? +$/.test(data);
+const isValidnumber = (data: string) =>/^\d+$/.test(data);
 
 export const mapData = (data: DataType): FormType => {
   return {
