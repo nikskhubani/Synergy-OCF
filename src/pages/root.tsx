@@ -71,13 +71,17 @@ function Root() {
     <>
     {!param.id && <SuccessModal open={saved.valid} id={saved.id} />}
     {isLoading ? <div>Loading...</div> : (
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit, (e) => {
+        if (Object.keys(e).length) {
+          toast.error("Some fields didn't pass validation—please correct them and try again.")
+        }
+      })}>
         <FirstForm form={form} />
         <SecondForm form={form} />
         <ThirdForm form={form} />
 
         <Container maxWidth="md" sx={{pb: 4}}>
-          <Button disabled={isSubmitting} type="submit" variant="contained" color="primary">Submit</Button>
+          <Button disabled={isSubmitting} loading={isSubmitting}  type="submit" variant="contained" color="primary">Submit</Button>
         </Container>
       </form>
     )}

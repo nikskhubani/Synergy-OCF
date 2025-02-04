@@ -184,7 +184,7 @@ export async function saveToSharePointAsync(
         `/sites/${graphConfig.gfhpmGraphSiteId}/lists/${graphConfig.listId}/items`
       )
       .post(itemPayload);
-    console.log("Item saved to SharePoint:", response);
+    // console.log("Item saved to SharePoint:", response);
     return response;
   } catch (error) {
     console.log("Error saving item to SharePoint:", error);
@@ -296,7 +296,7 @@ export async function updateSharePointAsync(
         `/sites/${graphConfig.gfhpmGraphSiteId}/lists/${graphConfig.listId}/items/${id}`
       )
       .update(itemPayload);
-    console.log("Item updated to SharePoint:", response);
+    // console.log("Item updated to SharePoint:", response);
     return response;
   } catch (error) {
     console.log("Error updating item to SharePoint:", error);
