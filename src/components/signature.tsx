@@ -48,7 +48,7 @@ const SignaturePad = ({onSignatureChange, value}: SignaturePadProps) => {
     if (signaturePad && value) {
       signaturePad.fromDataURL(value);
     }
-  }, [signaturePad, value])
+  }, [signaturePad])
 
   const clearSignature = () => {
     if (signaturePad) {
@@ -61,7 +61,7 @@ const SignaturePad = ({onSignatureChange, value}: SignaturePadProps) => {
       <canvas
         ref={canvasRef}
         width={600}
-        height={40}
+        height={100}
         style={{ border: '1px solid #000' }}
       ></canvas>
       <Button onClick={clearSignature}>Clear</Button>
