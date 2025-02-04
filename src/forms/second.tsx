@@ -10,7 +10,6 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import { Header } from "../components/header";
 import { FormWrapper } from "../components/form-wrapper";
 import { FormTitle, TextInput, TextInputLabel } from "../styles/global";
 import { Controller, useFieldArray, UseFormReturn } from "react-hook-form";
@@ -43,8 +42,6 @@ export const SecondForm = ({
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Header />
-
       <FormWrapper>
         <Typography variant="h6" component="h6" gutterBottom>
           Emergency Contact List
@@ -256,13 +253,13 @@ export const SecondForm = ({
 
           {contactFields.map((field, idx) => (
             <Box key={field.id} sx={{ width: "100%", position: 'relative' }}>
-              <RemoveButton variant="outlined" onClick={() => removeContact(idx)}>Remove</RemoveButton>
+              <RemoveButton color="error" onClick={() => removeContact(idx)}>Remove</RemoveButton>
               <FormTitle variant="body1" component="h6" gutterBottom>
                 ({idx + 1}) Emergency Contact
               </FormTitle>
 
               <FormControl
-                error={!!errors.emergency?.contact?.[idx]}
+                error={!!errors.emergency?.contact?.[idx]?.name}
                 sx={{ borderBottom: "1.5px solid black", width: "100%" }}
               >
                 <Box
@@ -740,7 +737,7 @@ export const SecondForm = ({
             </Typography>
             {userFields.map((field, idx) => (
               <Box key={field.id} sx={{ width: "100%", position: 'relative', borderTop: '1.5px solid black' }}>
-                <RemoveButton variant="outlined" onClick={() => removeUser(idx)}>Remove</RemoveButton>
+                <RemoveButton color="error" onClick={() => removeUser(idx)}>Remove</RemoveButton>
                 <Box sx={{ display: "flex", borderBottom: "1.5px solid black" }}>
                   <FormControl
                     error={!!errors.additionalUsers?.[idx]?.name}
@@ -946,5 +943,6 @@ const RemoveButton = styled(Button)({
   position: 'absolute',
   top: '41%',
   right: '0px',
-  zIndex: '1000'
+  zIndex: '1000',
+  textDecoration: 'underline'
 })

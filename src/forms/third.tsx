@@ -1,5 +1,4 @@
 import { Box, Checkbox, Container, FormControl, FormControlLabel, Typography } from "@mui/material"
-import { Header } from "../components/header"
 import { FormWrapper } from "../components/form-wrapper"
 import { TextInput, TextInputLabel } from "../styles/global"
 import { Controller, UseFormReturn } from "react-hook-form"
@@ -18,7 +17,6 @@ type ThirdFormProps = {
 export const ThirdForm = ({ form: { control } }: ThirdFormProps) => {
   return (
     <Container maxWidth="md" sx={{py: 4}}>
-      <Header />
 
       <FormWrapper>
         <Typography variant="h6" component="h6" gutterBottom>
