@@ -788,7 +788,7 @@ export const SecondForm = ({
                     />
                     {Array.isArray(errors.additionalUsers) && (
                       <FormHelperText>
-                        {errors.additionalUsers?.[idx]?.secondaryNumber?.message}
+                        {errors.additionalUsers?.[idx]?.emailAddress?.message}
                       </FormHelperText>
                     )}
                   </FormControl>
