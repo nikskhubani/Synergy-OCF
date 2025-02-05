@@ -504,7 +504,9 @@ export const SecondForm = ({
                 </FormGroup>
               </FormControl>
 
-              <RemoveButton color="error" onClick={() => removeContact(idx)}>Remove</RemoveButton>
+              <RemoveWrapper>
+                <RemoveButton color="error" onClick={() => removeContact(idx)}>Remove</RemoveButton>
+              </RemoveWrapper>
             </Box>
           ))}
           <Button type="button" variant="outlined" onClick={() => newContact({})}>
@@ -923,7 +925,9 @@ export const SecondForm = ({
                   </FormGroup>
                 </FormControl>
 
-                <RemoveButton color="error" onClick={() => removeUser(idx)}>Remove</RemoveButton>
+                <RemoveWrapper>
+                  <RemoveButton color="error" onClick={() => removeUser(idx)}>Remove</RemoveButton>
+                </RemoveWrapper>
               </Box>
             ))}
             <Button type="button" variant="outlined" onClick={() => newUser({})}>
@@ -943,7 +947,13 @@ export const SecondForm = ({
   );
 };
 
+const RemoveWrapper = styled(Box)({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'flex-end',
+})
+
 const RemoveButton = styled(Button)({
   textDecoration: 'underline',
-  justifyContent: 'flex-end'
+  width: '80px'
 })
