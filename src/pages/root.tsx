@@ -7,13 +7,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema, FormType } from '../schemas/schema';
 import { getAppOnlyBearerToken, getSharePointData, saveToSharePointAsync, updateSharePointAsync } from '../services/graph.service';
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { mapData } from '../helpers/mapdata';
 import SuccessModal from '../components/success-modal';
 import { toast } from 'react-toastify';
 
 function Root() {
   const param = useParams()
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(param.id ? true : false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [saved, setSaved] = useState({
@@ -33,6 +34,10 @@ function Root() {
       setIsLoading(false)
     } catch (error) {
       console.error(error)
+      toast.error("error unable to load form")
+      if ((error as Error).message.includes("not found")) {
+        navigate('/')
+      }
       setIsLoading(false)
     }
   }, [])
@@ -53,10 +58,11 @@ function Root() {
         const response = await saveToSharePointAsync(data, token.access_token)
         setSaved({valid: true, id: response.id})
       }
-      toast("Saved successfully")
+      toast.success("Saved successfully")
       setIsSubmitting(false)
     } catch (error) {
       console.error(error)
+      toast.error((error as Error).message)
       setIsSubmitting(false)
     }
   }
