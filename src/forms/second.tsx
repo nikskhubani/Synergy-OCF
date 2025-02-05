@@ -36,8 +36,10 @@ export const SecondForm = ({
   });
 
   useEffect(() => {
-    newContact({})
-    newUser({})
+    if (!contactFields.length && !userFields.length) {
+      newContact({})
+      newUser({})
+    }
   }, [])
 
   return (
@@ -252,8 +254,7 @@ export const SecondForm = ({
           </Box>
 
           {contactFields.map((field, idx) => (
-            <Box key={field.id} sx={{ width: "100%", position: 'relative' }}>
-              <RemoveButton color="error" onClick={() => removeContact(idx)}>Remove</RemoveButton>
+            <Box key={field.id} sx={{ width: "100%", position: 'relative', display: 'flex', flexDirection: 'column' }}>
               <FormTitle variant="body1" component="h6" gutterBottom>
                 ({idx + 1}) Emergency Contact
               </FormTitle>
@@ -502,6 +503,8 @@ export const SecondForm = ({
                   />
                 </FormGroup>
               </FormControl>
+
+              <RemoveButton color="error" onClick={() => removeContact(idx)}>Remove</RemoveButton>
             </Box>
           ))}
           <Button type="button" variant="outlined" onClick={() => newContact({})}>
@@ -736,8 +739,7 @@ export const SecondForm = ({
               be called in order listed
             </Typography>
             {userFields.map((field, idx) => (
-              <Box key={field.id} sx={{ width: "100%", position: 'relative', borderTop: '1.5px solid black' }}>
-                <RemoveButton color="error" onClick={() => removeUser(idx)}>Remove</RemoveButton>
+              <Box key={field.id} sx={{ width: "100%", position: 'relative', borderTop: '1.5px solid black', display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{ display: "flex", borderBottom: "1.5px solid black" }}>
                   <FormControl
                     error={!!errors.additionalUsers?.[idx]?.name}
@@ -920,6 +922,8 @@ export const SecondForm = ({
                     />
                   </FormGroup>
                 </FormControl>
+
+                <RemoveButton color="error" onClick={() => removeUser(idx)}>Remove</RemoveButton>
               </Box>
             ))}
             <Button type="button" variant="outlined" onClick={() => newUser({})}>
@@ -940,9 +944,6 @@ export const SecondForm = ({
 };
 
 const RemoveButton = styled(Button)({
-  position: 'absolute',
-  top: '41%',
-  right: '0px',
-  zIndex: '1000',
-  textDecoration: 'underline'
+  textDecoration: 'underline',
+  justifyContent: 'flex-end'
 })
