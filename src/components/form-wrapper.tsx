@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Card, CardContent } from "@mui/material"
 import { PropsWithChildren } from "react"
 
 type FormWrapperProps = PropsWithChildren & {
@@ -6,8 +6,8 @@ type FormWrapperProps = PropsWithChildren & {
 
 export const FormWrapper = ({children}: FormWrapperProps) => {
   return (
-    <Box sx={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-      {children}
-    </Box>
+    <Card sx={{ marginBottom: 5, background: 'linear-gradient(90deg,#fafafa,#f4f4f4)' }} variant="outlined">
+      <CardContent>{children}</CardContent>
+    </Card>
   )
 }
