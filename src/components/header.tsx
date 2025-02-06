@@ -3,7 +3,7 @@ import { AddressText } from "../styles/global"
 
 export const Header = () => {
   return (
-    <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+    <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2}}>
         <BrandLogo src="/synergy.png" alt="logo" />
 
         <Typography variant="body1" component="p"sx={{textAlign: 'right'}} gutterBottom>
