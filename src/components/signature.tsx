@@ -60,7 +60,7 @@ const SignaturePad = ({onSignatureChange, value}: SignaturePadProps) => {
     <Box sx={{display: 'flex', alignItems: 'center'}}>
       <canvas
         ref={canvasRef}
-        width={600}
+        width={750}
         height={100}
         style={{ border: '1px solid #000' }}
       ></canvas>
