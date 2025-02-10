@@ -118,14 +118,14 @@ export async function saveToSharePointAsync(
         account_fax_number: form.account?.faxNumber,
         account_email_address: form.account?.emailAddress,
         email_address_or_fax: form.account?.emailAddressFax,
-        emergency_company_name: form.emergency?.companyName,
-        emergency_project_site_name: form.emergency?.siteName,
-        emergency_street_number: form.emergency?.streetNumber?.toString(),
-        emergency_street_name: form.emergency?.streetName,
-        emergency_suite_no: form.emergency?.suiteNo?.toString(),
-        emergency_city: form.emergency?.city,
-        emergency_province: form.emergency?.province,
-        emergency_postal_code: form.emergency?.postalCode,
+        // emergency_company_name: form.emergency?.companyName,
+        // emergency_project_site_name: form.emergency?.siteName,
+        // emergency_street_number: form.emergency?.streetNumber?.toString(),
+        // emergency_street_name: form.emergency?.streetName,
+        // emergency_suite_no: form.emergency?.suiteNo?.toString(),
+        // emergency_city: form.emergency?.city,
+        // emergency_province: form.emergency?.province,
+        // emergency_postal_code: form.emergency?.postalCode,
         emergency_contacts: JSON.stringify(form.emergency?.contact),
         authorization_client: form.authorization?.client,
         authorization_address: form.authorization?.address,
@@ -140,18 +140,18 @@ export async function saveToSharePointAsync(
       },
     };
 
-    if (form.account?.invoiceDelivery) {
-      const keys = Object.keys(form.account.invoiceDelivery) as Array<
-        keyof typeof form.account.invoiceDelivery
-      >;
-      itemPayload.fields = {
-        ...itemPayload.fields,
-        "invoice_delivery@odata.type": "Collection(Edm.String)",
-        invoice_delivery: keys.filter(
-          (key) => form.account?.invoiceDelivery?.[key]
-        ),
-      };
-    }
+    // if (form.account?.invoiceDelivery) {
+    //   const keys = Object.keys(form.account.invoiceDelivery) as Array<
+    //     keyof typeof form.account.invoiceDelivery
+    //   >;
+    //   itemPayload.fields = {
+    //     ...itemPayload.fields,
+    //     "invoice_delivery@odata.type": "Collection(Edm.String)",
+    //     invoice_delivery: keys.filter(
+    //       (key) => form.account?.invoiceDelivery?.[key]
+    //     ),
+    //   };
+    // }
 
     if (form.account?.paymentMethod) {
       const keys = Object.keys(form.account.paymentMethod) as Array<
@@ -230,14 +230,14 @@ export async function updateSharePointAsync(
         account_fax_number: form.account?.faxNumber,
         account_email_address: form.account?.emailAddress,
         email_address_or_fax: form.account?.emailAddressFax,
-        emergency_company_name: form.emergency?.companyName,
-        emergency_project_site_name: form.emergency?.siteName,
-        emergency_street_number: form.emergency?.streetNumber?.toString(),
-        emergency_street_name: form.emergency?.streetName,
-        emergency_suite_no: form.emergency?.suiteNo?.toString(),
-        emergency_city: form.emergency?.city,
-        emergency_province: form.emergency?.province,
-        emergency_postal_code: form.emergency?.postalCode,
+        // emergency_company_name: form.emergency?.companyName,
+        // emergency_project_site_name: form.emergency?.siteName,
+        // emergency_street_number: form.emergency?.streetNumber?.toString(),
+        // emergency_street_name: form.emergency?.streetName,
+        // emergency_suite_no: form.emergency?.suiteNo?.toString(),
+        // emergency_city: form.emergency?.city,
+        // emergency_province: form.emergency?.province,
+        // emergency_postal_code: form.emergency?.postalCode,
         emergency_contacts: JSON.stringify(form.emergency?.contact),
         authorization_client: form.authorization?.client,
         authorization_address: form.authorization?.address,
@@ -252,18 +252,18 @@ export async function updateSharePointAsync(
       },
     };
 
-    if (form.account?.invoiceDelivery) {
-      const keys = Object.keys(form.account.invoiceDelivery) as Array<
-        keyof typeof form.account.invoiceDelivery
-      >;
-      itemPayload.fields = {
-        ...itemPayload.fields,
-        "invoice_delivery@odata.type": "Collection(Edm.String)",
-        invoice_delivery: keys.filter(
-          (key) => form.account?.invoiceDelivery?.[key]
-        ),
-      };
-    }
+    // if (form.account?.invoiceDelivery) {
+    //   const keys = Object.keys(form.account.invoiceDelivery) as Array<
+    //     keyof typeof form.account.invoiceDelivery
+    //   >;
+    //   itemPayload.fields = {
+    //     ...itemPayload.fields,
+    //     "invoice_delivery@odata.type": "Collection(Edm.String)",
+    //     invoice_delivery: keys.filter(
+    //       (key) => form.account?.invoiceDelivery?.[key]
+    //     ),
+    //   };
+    // }
 
     if (form.account?.paymentMethod) {
       const keys = Object.keys(form.account.paymentMethod) as Array<
