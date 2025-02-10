@@ -1,4 +1,4 @@
-import { FormLabel, styled, TextField, Typography } from '@mui/material';
+import { FormControl as MUIFormControl, FormLabel, styled, TextField, Typography } from '@mui/material';
 
 export const AddressText = styled('span')({
   display: 'block',
@@ -18,7 +18,6 @@ export const FormTitle = styled(Typography)({
 }) as typeof Typography
 
 export const TextInputLabel = styled(FormLabel)({
-  padding: '8.5px 14px',
   fontSize: '0.9rem',
   color: 'black',
 }) as typeof FormLabel
@@ -31,3 +30,14 @@ export const TextInput = styled(TextField)({
     borderRadius: '0px',
   },
 }) as typeof TextField
+
+export const InputLabel = styled(FormLabel)({
+  display: 'block',
+  marginBottom: 5,
+});
+
+export const FormControl = styled(MUIFormControl)({
+  marginBottom: 20,
+  display: 'flex',
+  flexDirection: 'column'
+});
