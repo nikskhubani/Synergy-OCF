@@ -4,6 +4,7 @@ import { SecondForm } from '../forms/second';
 import { ThirdForm } from '../forms/third';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import ReCAPTCHA from "react-google-recaptcha";
 import { FormSchema, FormType } from '../schemas/schema';
 import { getAppOnlyBearerToken, getSharePointData, saveToSharePointAsync, updateSharePointAsync } from '../services/graph.service';
 import { useCallback, useEffect, useState } from 'react';
@@ -11,10 +12,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { mapData } from '../helpers/mapdata';
 import SuccessModal from '../components/success-modal';
 import { toast } from 'react-toastify';
+import { Header } from '../components/header';
+import { verifyCaptchaAsync } from '../services/captcha.service';
 
 function Root() {
   const param = useParams()
   const navigate = useNavigate()
+  const [captchaToken, setCaptchaToken] = useState("");
   const [isLoading, setIsLoading] = useState(param.id ? true : false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [saved, setSaved] = useState({
@@ -50,6 +54,11 @@ function Root() {
 
   const onSubmit = async (data: FormType) => {
     try {
+      if (!captchaToken) {
+        throw new Error("captcha is required");
+      }
+
+      await verifyCaptchaAsync(captchaToken)
       setIsSubmitting(true)
       const token = await getAppOnlyBearerToken()
       if (param.id) {
@@ -67,23 +76,33 @@ function Root() {
     }
   }
 
+  const handleCaptchaChange = (token: string | null) => {
+    if (token) setCaptchaToken(token);
+  };
+
   return (
     <>
     {!param.id && <SuccessModal open={saved.valid} id={saved.id} />}
     {isLoading ? <div>Loading...</div> : (
-      <form onSubmit={form.handleSubmit(onSubmit, (e) => {
-        if (Object.keys(e).length) {
-          toast.error("Some fields didn't pass validation—please correct them and try again.")
-        }
-      })}>
-        <FirstForm form={form} />
-        <SecondForm form={form} />
-        <ThirdForm form={form} />
+      <Container maxWidth="md" sx={{py: 4}}>
+        <Header />
+        <form onSubmit={form.handleSubmit(onSubmit, (e) => {
+          if (Object.keys(e).length) {
+            toast.error("Some fields didn't pass validation—please correct them and try again.")
+          }
+        })}>
+          <FirstForm form={form} />
+          <SecondForm form={form} />
+          <ThirdForm form={form} />
 
-        <Container maxWidth="md" sx={{pb: 4}}>
-          <Button disabled={isSubmitting} loading={isSubmitting}  type="submit" variant="contained" color="primary">Submit</Button>
-        </Container>
-      </form>
+          <ReCAPTCHA
+            sitekey="6LeO-WsmAAAAAPGv5ZldEjlIMAE3gmhSAV_znmlX"
+            onChange={handleCaptchaChange}
+          />
+
+          <Button sx={{mt: 4}} disabled={isSubmitting} loading={isSubmitting}  type="submit" variant="contained" color="primary">Submit</Button>
+        </form>
+      </Container>
     )}
     </>
   )
