@@ -2,19 +2,20 @@ import { Typography } from "@mui/material"
 
 type FormTitleProps = {
   text: string
+  marginBottom?: number
 }
 
 export const Title = ({ text }: FormTitleProps) => {
   return (
-    <Typography sx={{ marginBottom: 1, textTransform: 'capitalize', width: '100%', textAlign: 'center' }} variant="h5" component="p">
+    <h1 style={{fontSize: '36.955px', fontWeight: 500, lineHeight: 1.2, marginBottom: '0.5rem', marginTop: 0}}>
       {text}
-    </Typography>
+    </h1>
   )
 }
 
-export const CardTitle = ({ text }: FormTitleProps) => {
+export const CardTitle = ({ text, marginBottom }: FormTitleProps) => {
   return (
-    <Typography sx={{ marginBottom: 5 }} variant="h5" component="div">
+    <Typography sx={{ marginBottom: marginBottom || 5 }} variant="h5" component="div">
       {text}
     </Typography>
   )

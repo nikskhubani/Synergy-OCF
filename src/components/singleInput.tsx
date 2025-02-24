@@ -24,7 +24,7 @@ const SingleInput = ({ name, label, placeholder, type, isError, errorMessage, va
           name={name}
           id={name}
           placeholder={placeholder}
-          value={value || ''}
+          value={value}
           {...props}
           error={isError}
           helperText={errorMessage}
