@@ -33,7 +33,7 @@ export const mapData = (data: DataType): FormType => {
       emailAddress: data.account_email_address,
       // invoiceSubmission: returnMap(data.invoice_delivery),
       emailAddressFax: data.email_address_or_fax,
-      paymentMethod: returnMap(data.payment_method),
+      // paymentMethod: returnMap(data.payment_method),
     },
     emergency: {
       // siteName: data.emergency_project_site_name,

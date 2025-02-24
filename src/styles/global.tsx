@@ -4,7 +4,7 @@ export const AddressText = styled('span')({
   display: 'block',
   margin: 0,
   padding: 0,
-  fontSize: '0.7rem',
+  fontSize: '1rem',
   lineHeight: '1.5rem',
 })
 

@@ -43,12 +43,19 @@ export const FormSchema = z.object({
     emailAddress: z.string().optional().refine((val) => val === '' || val === undefined || val === null || z.string().email().safeParse(val).success, 'Invalid email address'),
     invoiceSubmission: z.string().optional(),
     invoiceSubmissionPo: z.string().optional(),
+    invoiceSubmissionEmail: z.string().email().optional(),
+    invoiceSubmissionFax: z.string().optional(),
+    invoiceSubmissionMail: z.string().optional(),
     emailAddressFax: z.string().optional(),
-    paymentMethod: z.object({
-      eft: z.boolean().optional(),
-      cheque: z.boolean().optional(),
-      card: z.boolean().optional(),
-    }).optional(),
+    paymentMethod: z.string().optional(),
+    terms: z.string().optional(),
+    pad: z.enum(['Yes', 'No']).optional(),
+    invoiceBackup: z.enum(['Yes', 'No']).optional(),
+    invoicePO: z.enum(['Yes', 'No']).optional(),
+    billTo: z.enum(['Import from Site/Head office', 'New']).optional(),
+    padDiscount: z.string().optional(),
+    acknowledge: z.boolean().optional(),
+    acknowledgeName: z.string().optional(),
   }).optional(),
   emergency: z.object({
     contact: z.array(z.object({
@@ -90,7 +97,33 @@ export const FormSchema = z.object({
     specialOccurrences: z.boolean().optional(),
     QAInspectionReport: z.boolean().optional(),
     systemNotice: z.boolean().optional(),
-  })).optional()
+  })).optional(),
+  serviceDetails: z.object({
+    service: z.string().optional(),
+    serviceOther: z.string().optional(),
+    billedPer: z.string().optional(),
+    uniformStyle: z.string().optional(),
+    tacticalEquipment: z.string().optional(),
+    vehicleRequired: z.string().optional(),
+    trainingRequired: z.string().optional(),
+    billedPerOther: z.string().optional()
+  }).optional(),
+  siteAuthorizedContact: z.object({
+    name: z.string().optional(),
+    emailAddress: z.string().optional(),
+    position: z.string().optional(),
+    telephone: z.string().optional(),
+    accessToRealTimeDashboard: z.boolean().optional(),
+    receiveDsor: z.boolean().optional(),
+    receiveInspection: z.boolean().optional(),
+    receiveSor: z.boolean().optional(),
+    receiveSqi: z.boolean().optional(),
+    receiveNotification: z.boolean().optional(),
+  }).optional(),
+  serviceSchedule: z.object({
+    startDate: z.coerce.date().optional(),
+    coverage: z.enum(["Ad hoc", "Reoccurring Hours"]).optional(),
+  }).optional()
 });
 
 export type FormType = z.infer<typeof FormSchema>;

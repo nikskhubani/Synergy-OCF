@@ -1,4 +1,4 @@
-import { Button, Container } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import { FirstForm } from '../forms/first';
 import { SecondForm } from '../forms/second';
 import { ThirdForm } from '../forms/third';
@@ -84,7 +84,7 @@ function Root() {
     <>
     {!param.id && <SuccessModal open={saved.valid} id={saved.id} />}
     {isLoading ? <div>Loading...</div> : (
-      <Container maxWidth="md" sx={{py: 4}}>
+      <Container maxWidth="xl" sx={{py: 4}}>
         <Header />
         <form onSubmit={form.handleSubmit(onSubmit, (e) => {
           if (Object.keys(e).length) {
@@ -100,7 +100,13 @@ function Root() {
             onChange={handleCaptchaChange}
           />
 
-          <Button sx={{mt: 4}} disabled={isSubmitting} loading={isSubmitting}  type="submit" variant="contained" color="primary">Submit</Button>
+          <Typography sx={{mb: 2, mt: 2}} variant="body2" component="p" gutterBottom>
+            <strong style={{display: 'block'}}>Disclaimer & Sign-Off</strong>
+
+            By submitting this form, I confirm that I am authorized to act on behalf of my organization and acknowledge that services will be provided as outlined in our service level agreement. Any modifications to the agreed-upon services must be authorized. I understand that my organization is responsible for ensuring the accuracy of the information provided to facilitate the effective delivery of services. By signing below, I accept these terms and confirm that all information submitted is accurate.    
+          </Typography>
+
+          <Button disabled={isSubmitting} loading={isSubmitting}  type="submit" variant="contained" color="primary">Submit</Button>
         </form>
       </Container>
     )}

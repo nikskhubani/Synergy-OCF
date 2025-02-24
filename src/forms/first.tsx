@@ -1,364 +1,1005 @@
-import { Controller, UseFormReturn } from "react-hook-form"
-import { Box, Checkbox, Container, FormControl, FormControlLabel, FormGroup, FormHelperText, Typography } from '@mui/material';
-import { FormTitle, TextInput, TextInputLabel } from '../styles/global';
-import { Header } from '../components/header';
-import { FormWrapper } from '../components/form-wrapper';
+import { Controller, UseFormReturn } from "react-hook-form";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  Grid2,
+  Typography,
+} from "@mui/material";
+import { TextInputLabel } from "../styles/global";
+import { FormWrapper } from "../components/form-wrapper";
 import { FormType } from "../schemas/schema";
+import { CardTitle, Title } from "../components/title";
+import SingleInput from "../components/singleInput";
+import SelectDropdown from "../components/select";
+import {
+  InvoiceSubmissionOptions,
+  NewAddressOptions,
+  TermsOptions,
+} from "../constants/constants";
+import SignaturePad from "../components/signature";
 
 type FirstFormProps = {
-  form: UseFormReturn<FormType>
-}
+  form: UseFormReturn<FormType>;
+};
 
-export const FirstForm = ({ form: {control, formState: {errors}}}: FirstFormProps) => {
+export const FirstForm = ({
+  form: {
+    control,
+    watch,
+    formState: { errors },
+    getValues
+  },
+}: FirstFormProps) => {
+  const importSiteOffice = watch('account.billTo')=== 'Import from Site/Head office';
+
   return (
-    <Container maxWidth="md" sx={{py: 4}}>
-      <Header />
+    <Box>
+      <Title text="Synergy New Account Information" />
+      <Typography variant="body2" component="p" gutterBottom>Welcome to Synergy Protection Group! We are honoured to be your security partner and appreciate your trust in our team. At Synergy, we are committed to delivering best-in-class security solutions tailored to your needs while exceeding expectations. Please complete the details below to help us set up your account and ensure a seamless onboarding experience. Thank you for choosing Synergy—we look forward to a strong and lasting partnership! </Typography>
 
       <FormWrapper>
-        <Typography variant="h6" component="h6" gutterBottom>
-          New Account Setup
+        <CardTitle text="Company Information" />
+
+        <Controller
+          name="companyName"
+          control={control}
+          render={({ field }) => (
+            <SingleInput
+              label="Company Name"
+              id="companyName"
+              isError={!!errors.companyName}
+              errorMessage={errors.companyName?.message}
+              {...field}
+            />
+          )}
+        />
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={4}>
+            <Controller
+              name="streetNumber"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Street Number"
+                  id="streetNumber"
+                  isError={!!errors.streetNumber}
+                  errorMessage={errors.streetNumber?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="streetName"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Street Name"
+                  id="streetName"
+                  isError={!!errors.streetName}
+                  errorMessage={errors.streetName?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="suiteNo"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Suite No"
+                  id="suiteNo"
+                  isError={!!errors.suiteNo}
+                  errorMessage={errors.suiteNo?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={3}>
+            <Controller
+              name="city"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="City"
+                  id="city"
+                  isError={!!errors.city}
+                  errorMessage={errors.city?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <Controller
+              name="province"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Province"
+                  id="province"
+                  isError={!!errors.province}
+                  errorMessage={errors.province?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <Controller
+              name="postalCode"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Postal Code"
+                  id="postalCode"
+                  isError={!!errors.postalCode}
+                  errorMessage={errors.postalCode?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <Controller
+              name="website"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Website"
+                  id="website"
+                  isError={!!errors.website}
+                  errorMessage={errors.website?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={4}>
+            <Controller
+              name="mainNumber"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Main Number"
+                  id="mainNumber"
+                  isError={!!errors.mainNumber}
+                  errorMessage={errors.mainNumber?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="faxPhone"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Fax Phone"
+                  id="faxPhone"
+                  isError={!!errors.faxPhone}
+                  errorMessage={errors.faxPhone?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="emailAddress"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Email Address"
+                  id="emailAddress"
+                  isError={!!errors.emailAddress}
+                  errorMessage={errors.emailAddress?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+      </FormWrapper>
+
+      <FormWrapper>
+        <CardTitle marginBottom={1} text="Primary User Information" />
+        <Typography sx={{mb: 2}} variant="body2" component="p" gutterBottom>Please provide the details for the primary contact responsible for communication regarding Synergy’s services. </Typography>
+        
+        <Controller
+          name="authorized.name"
+          control={control}
+          render={({ field }) => (
+            <SingleInput
+              label="Name"
+              id="authorizedName"
+              isError={!!errors.authorized?.name}
+              errorMessage={errors.authorized?.name?.message}
+              {...field}
+            />
+          )}
+        />
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.position"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Position"
+                  id="authorizedposition"
+                  isError={!!errors.authorized?.position}
+                  errorMessage={errors.authorized?.position?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.mobileNumber"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Mobile Number"
+                  id="authorizedmobileNumber"
+                  isError={!!errors.authorized?.mobileNumber}
+                  errorMessage={errors.authorized?.mobileNumber?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.officeNumber"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Office Number"
+                  id="authorizedofficeNumber"
+                  isError={!!errors.authorized?.officeNumber}
+                  errorMessage={errors.authorized?.officeNumber?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.emailAddress"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Email Address"
+                  id="authorizedemailAddress"
+                  isError={!!errors.authorized?.emailAddress}
+                  errorMessage={errors.authorized?.emailAddress?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}></Grid2>
+          <Grid2 size={4}></Grid2>
+        </Grid2>
+
+        <Typography variant="body1" component="h6" sx={{ mb: 2 }} gutterBottom>
+          System Access & Report Distribution
+        </Typography>
+        <TextInputLabel htmlFor="name">
+          This User is Authorized to (Check All that Apply)
+        </TextInputLabel>
+
+        <Grid2 container sx={{ my: 2 }} spacing={2}>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.systemReport.accessToRealTimeDashboard"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
+                  control={<Checkbox checked={field.value} {...field} />}
+                  label="Access To Synergy’s Real-Time Dashboard"
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.systemReport.receiveDsor"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
+                  control={<Checkbox checked={field.value} {...field} />}
+                  label="Receive DSOR (Daily Shift Occurrence Report)"
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.systemReport.receiveInspection"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
+                  control={<Checkbox checked={field.value} {...field} />}
+                  label="Receive Inspection or Response Reports, if applicable"
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.systemReport.receiveSor"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
+                  control={<Checkbox checked={field.value} {...field} />}
+                  label="Receive SOR (Special Occurrence Reports)"
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.systemReport.receiveSqi"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
+                  control={<Checkbox checked={field.value} {...field} />}
+                  label="Receive SQI (Service Quality Inspections Reports)"
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="authorized.systemReport.receiveNotification"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
+                  control={<Checkbox checked={field.value} {...field} />}
+                  label="Receive notifications on Service Interruptions"
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+      </FormWrapper>
+
+      <FormWrapper>
+        <CardTitle marginBottom={1} text="Account Payable Information" />
+        <Typography sx={{mb: 2}} variant="body2" component="p" gutterBottom>
+          A summary of the agreed-upon security services, including scope, pricing, and key deliverables. 
         </Typography>
 
-        <Box sx={{width: '100%', border: '1.5px solid black'}}>
-          <Box sx={{width: '100%'}}>
-            <FormTitle variant="body1" component="h6" gutterBottom>
-              Company Information
-            </FormTitle>
+        <Controller
+          name="account.name"
+          control={control}
+          render={({ field }) => (
+            <SingleInput
+              label="Name"
+              id="accountName"
+              isError={!!errors.account?.name}
+              errorMessage={errors.account?.name?.message}
+              {...field}
+            />
+          )}
+        />
 
-            <FormControl error={!!errors.companyName} sx={{borderBottom: '1.5px solid black', width: '100%'}}>
-              <TextInputLabel htmlFor="companyName">
-                Company Name:
-              </TextInputLabel>
+        <Grid2 container spacing={2}>
+          <Grid2 size={3}>
+            <Controller
+              name="account.faxNumber"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Fax Number"
+                  id="accountfaxNumber"
+                  isError={!!errors.account?.faxNumber}
+                  errorMessage={errors.account?.faxNumber?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <Controller
+              name="account.directNumber"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Direct Number"
+                  id="accountdirectNumber"
+                  isError={!!errors.account?.directNumber}
+                  errorMessage={errors.account?.directNumber?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <Controller
+              name="account.directNumber"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Ext"
+                  id="accountExt"
+                  isError={!!errors.account?.directNumber}
+                  errorMessage={errors.account?.directNumber?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={3}>
+            <Controller
+              name="account.emailAddress"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Email Address"
+                  id="accountemailAddress"
+                  isError={!!errors.account?.emailAddress}
+                  errorMessage={errors.account?.emailAddress?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={12}>
+            <Controller
+              name="account.invoiceSubmission"
+              control={control}
+              render={({ field }) => (
+                <SelectDropdown
+                  {...field}
+                  label="Invoice Submission"
+                  options={InvoiceSubmissionOptions}
+                  // isError={!!errors[field.name]}
+                  // errorMessage={errors[field.name]?.message?.toString()}
+                />
+              )}
+            />
+          </Grid2>
+          {watch('account.invoiceSubmission')?.includes('ERP') && (
+            <Grid2 size={12}>
               <Controller
-                name="companyName"
+                name="account.invoiceSubmissionPo"
                 control={control}
-                render={({ field }) => <TextInput id='companyName' fullWidth size='small' {...field} />}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Platform – Ref/PO"
+                    id="platform-ref-po"
+                    // isError={!!errors.account?.emailAddress}
+                    // errorMessage={errors.account?.emailAddress?.message}
+                    {...field}
+                  />
+                )}
               />
-              <FormHelperText>{errors.companyName?.message}</FormHelperText>
-            </FormControl>
+            </Grid2>
+          )}
 
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.streetNumber} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="streetNumber">
-                  Street Number:
-                </TextInputLabel>
-                <Controller
-                  name="streetNumber"
-                  control={control}
-                  render={({ field }) => <TextInput  id='streetNumber">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.streetNumber?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.streetName} sx={{flexBasis: '50%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="streetName">
-                  Street Name:
-                </TextInputLabel>
-                <Controller
-                  name="streetName"
-                  control={control}
-                  render={({ field }) => <TextInput  id='streetName">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.streetName?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.suiteNo} sx={{flexBasis: '25%'}}>
-                <TextInputLabel htmlFor="suiteNo">
-                  Suite No:
-                </TextInputLabel>
-                <Controller
-                  name="suiteNo"
-                  control={control}
-                  render={({ field }) => <TextInput  id='suiteNo">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.suiteNo?.message}</FormHelperText>
-              </FormControl>
-            </Box>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.city} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="city">
-                  City:
-                </TextInputLabel>
-                <Controller
-                  name="city"
-                  control={control}
-                  render={({ field }) => <TextInput  id='city">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.city?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.province} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="province">
-                  Province:
-                </TextInputLabel>
-                <Controller
-                  name="province"
-                  control={control}
-                  render={({ field }) => <TextInput  id='province">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.province?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.postalCode} sx={{flexBasis: '25%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="postalCode">
-                  Postal Code:
-                </TextInputLabel>
-                <Controller
-                  name="postalCode"
-                  control={control}
-                  render={({ field }) => <TextInput  id='postalCode">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.postalCode?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.website} sx={{flexBasis: '25%'}}>
-                <TextInputLabel htmlFor="website">
-                  Website:
-                </TextInputLabel>
-                <Controller
-                  name="website"
-                  control={control}
-                  render={({ field }) => <TextInput  id='website">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.website?.message}</FormHelperText>
-              </FormControl>
-            </Box>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.mainNumber} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="mainNumber">
-                  Main Number:
-                </TextInputLabel>
-                <Controller
-                  name="mainNumber"
-                  control={control}
-                  render={({ field }) => <TextInput  id='mainNumber">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.mainNumber?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.faxPhone} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="faxPhone">
-                  Fax Phone:
-                </TextInputLabel>
-                <Controller
-                  name="faxPhone"
-                  control={control}
-                  render={({ field }) => <TextInput  id='faxPhone">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.faxPhone?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.emailAddress} sx={{flexBasis: '33.3%'}}>
-                <TextInputLabel htmlFor="emailAddress">
-                  Email Address:
-                </TextInputLabel>
-                <Controller
-                  name="emailAddress"
-                  control={control}
-                  render={({ field }) => <TextInput  id='emailAddress">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.emailAddress?.message}</FormHelperText>
-              </FormControl>
-            </Box>
-          </Box>
-
-          <Box sx={{width: '100%'}}>
-            <FormTitle variant="body1" component="h6" gutterBottom>
-            Authorized Contact Information
-            </FormTitle>
-
-            <FormControl error={!!errors.authorized?.name} sx={{borderBottom: '1.5px solid black', width: '100%'}}>
-              <TextInputLabel htmlFor="authorizedName">
-                Name:
-              </TextInputLabel>
+          {watch('account.invoiceSubmission') === 'Email' && (
+            <Grid2 size={12}>
               <Controller
-                name="authorized.name"
+                name="account.invoiceSubmissionEmail"
                 control={control}
-                render={({ field }) => <TextInput  id='authorizedName">' fullWidth size='small' {...field} />}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Email Address"
+                    id="emailAddress"
+                    // isError={!!errors.account?.emailAddress}
+                    // errorMessage={errors.account?.emailAddress?.message}
+                    {...field}
+                  />
+                )}
               />
-              <FormHelperText>{errors.authorized?.name?.message}</FormHelperText>
-            </FormControl>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.authorized?.position} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="authorizedposition">
-                  Position:
-                </TextInputLabel>
-                <Controller
-                  name="authorized.position"
-                  control={control}
-                  render={({ field }) => <TextInput  id='authorizedposition">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.authorized?.position?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.authorized?.mobileNumber} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="authorizedmobileNumber">
-                  Mobile Number:
-                </TextInputLabel>
-                <Controller
-                  name="authorized.mobileNumber"
-                  control={control}
-                  render={({ field }) => <TextInput  id='authorizedmobileNumber">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.authorized?.mobileNumber?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.authorized?.officeNumber} sx={{flexBasis: '33.3%'}}>
-                <TextInputLabel htmlFor="authorizedofficeNumber">
-                  Office Number:
-                </TextInputLabel>
-                <Controller
-                  name="authorized.officeNumber"
-                  control={control}
-                  render={({ field }) => <TextInput  id='authorizedofficeNumber">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.authorized?.officeNumber?.message}</FormHelperText>
-              </FormControl>
-            </Box>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.authorized?.faxNumber} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="authorizedfaxNumber">
-                  Fax Number:
-                </TextInputLabel>
-                <Controller
-                  name="authorized.faxNumber"
-                  control={control}
-                  render={({ field }) => <TextInput  id='authorizedfaxNumber">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.authorized?.faxNumber?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.authorized?.emailAddress} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="authorizedemailAddress">
-                  Email Address:
-                </TextInputLabel>
-                <Controller
-                  name="authorized.emailAddress"
-                  control={control}
-                  render={({ field }) => <TextInput  id='authorizedemailAddress">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.authorized?.emailAddress?.message}</FormHelperText>
-              </FormControl>
-              <Box sx={{flexBasis: '33.3%'}}>
-                
-              </Box>
-            </Box>
-          </Box>
+            </Grid2>
+          )}
 
-          <Box sx={{width: '100%'}}>
-            <FormTitle variant="body1" component="h6" gutterBottom>
-            Account Payable Information 
-            </FormTitle>
-
-            <FormControl error={!!errors.account?.name} sx={{borderBottom: '1.5px solid black', width: '100%'}}>
-              <TextInputLabel htmlFor="accountName">
-                Name:
-              </TextInputLabel>
+          {watch('account.invoiceSubmission') === 'Fax' && (
+            <Grid2 size={12}>
               <Controller
-                name="account.name"
+                name="account.invoiceSubmissionFax"
                 control={control}
-                render={({ field }) => <TextInput  id='accountName">' fullWidth size='small' {...field} />}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Fax Number"
+                    id="faxNumber"
+                    // isError={!!errors.account?.emailAddress}
+                    // errorMessage={errors.account?.emailAddress?.message}
+                    {...field}
+                  />
+                )}
               />
-              <FormHelperText>{errors.account?.name?.message}</FormHelperText>
-            </FormControl>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.account?.faxNumber} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="accountfaxNumber">
-                  Fax Number:
-                </TextInputLabel>
-                <Controller
-                  name="account.faxNumber"
-                  control={control}
-                  render={({ field }) => <TextInput  id='accountfaxNumber">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.account?.faxNumber?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.account?.directNumber} sx={{flexBasis: '33.3%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="accountdirectNumber">
-                  Direct Number:
-                </TextInputLabel>
-                <Controller
-                  name="account.directNumber"
-                  control={control}
-                  render={({ field }) => <TextInput  id='accountdirectNumber">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.account?.directNumber?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.account?.emailAddress} sx={{flexBasis: '33.3%'}}>
-                <TextInputLabel htmlFor="accountemailAddress">
-                  Email Address:
-                </TextInputLabel>
-                <Controller
-                  name="account.emailAddress"
-                  control={control}
-                  render={({ field }) => <TextInput  id='accountemailAddress">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.account?.emailAddress?.message}</FormHelperText>
-              </FormControl>
-            </Box>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.account?.invoiceDelivery} sx={{flexBasis: '50%', borderRight: '1.5px solid black', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <TextInputLabel>
-                  Invoice Delivery:
-                </TextInputLabel>
-                <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                  <Controller
-                    name="account.invoiceDelivery.email"
-                    control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Email" />}
-                  />
-                  <Controller
-                    name="account.invoiceDelivery.fax"
-                    control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Fax" />}
-                  />
-                  <Controller
-                    name="account.invoiceDelivery.mail"
-                    control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Mail" />}
-                  />
-                </FormGroup>
-              </FormControl>
-              <Box sx={{flexBasis: '20%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel>
-                  Attention:
-                </TextInputLabel>
-                {/* <TextInput id='emailAddress">' fullWidth size='small' /> */}
-              </Box>
-              <Box sx={{flexBasis: '30%'}}>
-                
-              </Box>
-            </Box>
-            <Box sx={{display: 'flex', borderBottom: '1.5px solid black'}}>
-              <FormControl error={!!errors.account?.emailAddressFax} sx={{flexBasis: '50%', borderRight: '1.5px solid black'}}>
-                <TextInputLabel htmlFor="accountemailAddressFax">
-                  Email Address/ Fax No:
-                </TextInputLabel>
-                <Controller
-                  name="account.emailAddressFax"
-                  control={control}
-                  render={({ field }) => <TextInput  id='accountemailAddressFax">' fullWidth size='small' {...field} />}
-                />
-                <FormHelperText>{errors.account?.emailAddressFax?.message}</FormHelperText>
-              </FormControl>
-              <FormControl error={!!errors.account?.paymentMethod} sx={{flexBasis: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                <TextInputLabel>
-                  Payment Method:
-                </TextInputLabel>
-                <FormGroup sx={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <Controller
-                    name="account.paymentMethod.eft"
-                    control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="EFT" />}
-                  />
-                  <Controller
-                    name="account.paymentMethod.cheque"
-                    control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Cheque" />}
-                  />
-                  <Controller
-                    name="account.paymentMethod.card"
-                    control={control}
-                    render={({ field }) => <FormControlLabel control={<Checkbox checked={field.value} {...field} />} label="Visa/Mastercard" />}
-                  />
-                </FormGroup>
-              </FormControl>
-            </Box>
-          </Box>
+            </Grid2>
+          )}
 
-          <FormTitle sx={{m: 0, p: 0}} variant="body1" component="h6" gutterBottom></FormTitle>
-        </Box>
+          {watch('account.invoiceSubmission') === 'Mail' && (
+            <Grid2 size={12}>
+              <Controller
+                name="account.invoiceSubmissionMail"
+                control={control}
+                render={({ field }) => (
+                  <SelectDropdown
+                    {...field}
+                    label="Mail Options"
+                    options={NewAddressOptions}
+                    // isError={!!errors[field.name]}
+                    // errorMessage={errors[field.name]?.message?.toString()}
+                  />
+                )}
+              />
+            </Grid2>
+          )}
+        </Grid2>
+
+        {watch('account.invoiceSubmissionMail') === 'New Address' && (
+          <>
+            <Grid2 container spacing={2}>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.streetNumber"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="Street Number"
+                      id="authorizedStreetNumber"
+                      isError={!!errors.authorized?.streetNumber}
+                      errorMessage={errors.authorized?.streetNumber?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.streetName"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="Street Name"
+                      id="authorizedStreetName"
+                      isError={!!errors.authorized?.streetName}
+                      errorMessage={errors.authorized?.streetName?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.suiteNo"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="Suite No"
+                      id="authorizedSuiteNo"
+                      isError={!!errors.authorized?.suiteNo}
+                      errorMessage={errors.authorized?.suiteNo?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+            </Grid2>
+
+            <Grid2 container spacing={2}>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.city"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="City"
+                      id="authorizedcity"
+                      isError={!!errors.authorized?.city}
+                      errorMessage={errors.authorized?.city?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.province"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="Province"
+                      id="authorizedProvince"
+                      isError={!!errors.authorized?.province}
+                      errorMessage={errors.authorized?.province?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.postalCode"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="Postal Code"
+                      id="authorizedPostalCode"
+                      isError={!!errors.authorized?.postalCode}
+                      errorMessage={errors.authorized?.postalCode?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+            </Grid2>
+          </>
+        )}
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={12}>
+            <Controller
+              name="account.invoiceBackup"
+              control={control}
+              render={({ field }) => (
+                <SelectDropdown
+                  {...field}
+                  label="Invoice Backup Required"
+                  options={['Yes', 'No']}
+                  // isError={!!errors[field.name]}
+                  // errorMessage={errors[field.name]?.message?.toString()}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+            <Controller
+              name="account.invoicePO"
+              control={control}
+              render={({ field }) => (
+                <SelectDropdown
+                  {...field}
+                  label="PO required on Invoices"
+                  options={['Yes', 'No']}
+                  // isError={!!errors[field.name]}
+                  // errorMessage={errors[field.name]?.message?.toString()}
+                />
+              )}
+            />
+          </Grid2>
+          {watch('account.invoicePO') === 'Yes' && (
+            <Grid2 size={12}>
+              <Controller
+                name="account.invoiceSubmissionPo"
+                control={control}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Add a PO"
+                    id="addAPO"
+                    isError={!!errors.account?.emailAddress}
+                    errorMessage={errors.account?.emailAddress?.message}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid2>
+          )}
+
+          <Grid2 size={12}>
+            <Controller
+              name="account.billTo"
+              control={control}
+              render={({ field }) => (
+                <SelectDropdown
+                  {...field}
+                  label="Bill To Alternative"
+                  options={['Import from Site/Head office', 'New']}
+                  // isError={!!errors[field.name]}
+                  // errorMessage={errors[field.name]?.message?.toString()}
+                />
+              )}
+            />
+          </Grid2>
+          {/* {watch('account.billTo') === 'New' && (
+            <Grid2 size={12}>
+              <Controller
+                name="account.emailAddress"
+                control={control}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Bill To Name"
+                    id="addAPO"
+                    isError={!!errors.account?.emailAddress}
+                    errorMessage={errors.account?.emailAddress?.message}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid2>
+          )} */}
+        </Grid2>
+
+        {['Import from Site/Head office', 'New'].includes(watch('account.billTo') || '') && (
+          <>
+            <Grid2 container spacing={2}>
+            <Grid2 size={4}>
+              <Controller
+                name="authorized.streetNumber"
+                control={control}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Street Number"
+                    id="authorizedStreetNumber"
+                    defaultValue={importSiteOffice ? getValues('streetNumber') : ''}
+                    isError={!!errors.authorized?.streetNumber}
+                    errorMessage={errors.authorized?.streetNumber?.message}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid2>
+            <Grid2 size={4}>
+              <Controller
+                name="authorized.streetName"
+                control={control}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Street Name"
+                    id="authorizedStreetName"
+                    defaultValue={importSiteOffice ? getValues('streetName') : ''}
+                    isError={!!errors.authorized?.streetName}
+                    errorMessage={errors.authorized?.streetName?.message}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid2>
+            <Grid2 size={4}>
+              <Controller
+                name="authorized.suiteNo"
+                control={control}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Suite No"
+                    id="authorizedSuiteNo"
+                    defaultValue={importSiteOffice ? getValues('suiteNo') : ''}
+                    isError={!!errors.authorized?.suiteNo}
+                    errorMessage={errors.authorized?.suiteNo?.message}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid2>
+            </Grid2>
+
+            <Grid2 container spacing={2}>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.city"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="City"
+                      id="authorizedcity"
+                      defaultValue={importSiteOffice ? getValues('city') : ''}
+                      isError={!!errors.authorized?.city}
+                      errorMessage={errors.authorized?.city?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.province"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="Province"
+                      id="authorizedProvince"
+                      defaultValue={importSiteOffice ? getValues('province') : ''}
+                      isError={!!errors.authorized?.province}
+                      errorMessage={errors.authorized?.province?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+              <Grid2 size={4}>
+                <Controller
+                  name="authorized.postalCode"
+                  control={control}
+                  render={({ field }) => (
+                    <SingleInput
+                      label="Postal Code"
+                      id="authorizedPostalCode"
+                      defaultValue={importSiteOffice ? getValues('postalCode') : ''}
+                      isError={!!errors.authorized?.postalCode}
+                      errorMessage={errors.authorized?.postalCode?.message}
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid2>
+            </Grid2>
+          </>
+        )}
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={4}>
+            <Controller
+              name="account.emailAddressFax"
+              control={control}
+              render={({ field }) => (
+                <SingleInput
+                  label="Email Address / Fax No"
+                  id="accountemailAddressFax"
+                  isError={!!errors.account?.emailAddressFax}
+                  errorMessage={errors.account?.emailAddressFax?.message}
+                  {...field}
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={4}>
+            <Controller
+              name="account.invoiceSubmissionPo"
+              control={control}
+              render={({ field }) => (
+                <SelectDropdown
+                  {...field}
+                  label="Billing Frequency"
+                  options={['Per Instance', 'Weekly', 'Biweekly', 'Monthly ']}
+                  // isError={!!errors[field.name]}
+                  // errorMessage={errors[field.name]?.message?.toString()}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={12}>
+            <Controller
+              name="account.paymentMethod"
+              control={control}
+              render={({ field }) => (
+                <SelectDropdown
+                  {...field}
+                  label="Payment Method"
+                  options={["EFT", "Cheque", "Credit"]}
+                  // isError={true}
+                  // errorMessage={'3% Surcharge Applies'}
+                  message={watch("account.paymentMethod") === "Credit" ? "(3% Surcharge Applies)" : ""}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={12}>
+            <Controller
+              name="account.terms"
+              control={control}
+              render={({ field }) => (
+                <SelectDropdown
+                  {...field}
+                  label="Terms"
+                  options={TermsOptions}
+                  // isError={true}
+                  // errorMessage={'3% Surcharge Applies'}
+                />
+              )}
+            />
+          </Grid2>
+        </Grid2>
+
+        {watch('account.terms')?.includes('PAD') ? (
+          <Grid2 container spacing={2}>
+            <Grid2 size={12}>
+              <Controller
+                name="account.pad"
+                control={control}
+                render={({ field }) => (
+                  <SelectDropdown
+                    {...field}
+                    label="Discount Rate"
+                    options={["Yes", "No"]}
+                    // isError={true}
+                    // errorMessage={'3% Surcharge Applies'}
+                  />
+                )}
+              />
+            </Grid2>
+          </Grid2>
+        ) : null}
+
+        {watch('account.pad') === 'Yes' ? (
+          <Grid2 container spacing={2}>
+            <Grid2 size={12}>
+              <Controller
+                name="account.padDiscount"
+                control={control}
+                render={({ field }) => (
+                  <SingleInput
+                    label="Discount Percentage"
+                    id="discountPercentage"
+                    // isError={!!errors.account?.emailAddress}
+                    // errorMessage={errors.account?.emailAddress?.message}
+                    {...field}
+                  />
+                )}
+              />
+            </Grid2>
+          </Grid2>
+        ) : null}
+
+        <Grid2 container spacing={2}>
+          <Grid2 size={12}>
+            <Typography>Arrears Interest Acknowledgement</Typography>
+          </Grid2>
+          <Grid2 size={12}>
+            <Controller
+              name="account.acknowledge"
+              control={control}
+              render={({ field }) => (
+                <FormControlLabel
+                  sx={{
+                    "& .MuiFormControlLabel-label": { fontSize: "14px" },
+                  }}
+                  control={<Checkbox checked={field.value} {...field} />}
+                  label="I acknowledge that overdue balances are subject to 2.5% interest per month (30% per annum) until paid in full. This policy is part of Synergy Protection Group Inc.'s Terms of Service, further outlined in our service agreements."
+                />
+              )}
+            />
+          </Grid2>
+          <Grid2 size={12}>
+          <SignaturePad />
+          </Grid2>
+        </Grid2>
       </FormWrapper>
-    </Container>
-  )
-}
+    </Box>
+  );
+};
